@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء حساب - أنعام السعودية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8B4513;
+            --secondary: #A0522D;
+            --accent: #D2691E;
+            --light: #F5F5DC;
+            --dark: #654321;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --shadow-lg: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* الهيدر */
+        .main-header {
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .header-top {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* محتوى الصفحة */
+        .register-main {
+            flex: 1;
+            padding: 40px 0;
+        }
+
+        .register-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .register-header {
+            background: var(--primary);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .register-header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .register-header p {
+            opacity: 0.9;
+        }
+
+        .register-body {
+            padding: 30px;
+        }
+
+        .form-steps {
+            display: flex;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .form-steps::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: 0;
+            left: 0;
+            height: 2px;
+            background: #eee;
+            z-index: 1;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-number {
+            background: var(--primary);
+            color: white;
+        }
+
+        .step.completed .step-number {
+            background: var(--success);
+            color: white;
+        }
+
+        .step-title {
+            font-size: 14px;
+            color: #777;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-title {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .step-content {
+            display: none;
+        }
+
+        .step-content.active {
+            display: block;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.2);
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        .input-with-icon .form-control {
+            padding-left: 45px;
+        }
+
+        .form-check {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .form-check-input {
+            margin-top: 5px;
+        }
+
+        .form-check-label {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .form-check-label a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .user-type-selection {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .user-type-card {
+            flex: 1;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 25px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .user-type-card:hover {
+            border-color: var(--primary);
+        }
+
+        .user-type-card.selected {
+            border-color: var(--primary);
+            background: rgba(139, 69, 19, 0.05);
+        }
+
+        .user-type-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .user-type-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .user-type-desc {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .map-container {
+            height: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+
+        /* تحسينات جديدة */
+        .profile-picture-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--primary);
+            margin-bottom: 15px;
+            position: relative;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-preview .placeholder {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .upload-btn {
+            background: var(--light);
+            border: 1px dashed var(--primary);
+            color: var(--primary);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            background: rgba(139, 69, 19, 0.1);
+        }
+
+        .location-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .location-details {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+        .location-info {
+            margin-top: 10px;
+        }
+
+        .location-info p {
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .location-info strong {
+            color: var(--primary);
+        }
+
+        /* القائمة السفلية */
+        .mobile-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            font-size: 12px;
+            padding: 5px;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        /* التجاوب */
+        @media (max-width: 768px) {
+            .register-container {
+                margin: 0 15px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .user-type-selection {
+                flex-direction: column;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .location-controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر -->
+    <header class="main-header">
+        <div class="header-top">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-paw"></i>
+                    <span>أنعام السعودية</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- محتوى الصفحة -->
+    <main class="register-main">
+        <div class="register-container">
+            <div class="register-header">
+                <h1>أنشئ حساب جديد</h1>
+                <p>انضم إلى منصة أنعام السعودية وابدأ رحلتك في عالم المواشي</p>
+            </div>
+            
+            <div class="register-body">
+                <!-- خطوات التسجيل -->
+                <div class="form-steps">
+                    <div class="step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-title">المعلومات الأساسية</div>
+                    </div>
+                    <div class="step" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-title">نوع المستخدم</div>
+                    </div>
+                    <div class="step" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-title">التحقق</div>
+                    </div>
+                </div>
+                
+                <!-- الخطوة 1: المعلومات الأساسية -->
+                <div class="step-content active" id="step-1">
+                    <form id="basic-info-form">
+                        <div class="profile-picture-upload">
+                            <div class="profile-preview" id="profilePreview">
+                                <div class="placeholder">صورة الملف الشخصي</div>
+                            </div>
+                            <input type="file" id="profilePicture" accept="image/*" style="display: none;">
+                            <label for="profilePicture" class="upload-btn">
+                                <i class="fas fa-upload"></i> اختر صورة شخصية
+                            </label>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="firstName">الاسم الأول</label>
+                                <input type="text" class="form-control" id="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="lastName">اسم العائلة</label>
+                                <input type="text" class="form-control" id="lastName" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="email">البريد الإلكتروني</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope input-icon"></i>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="phone">رقم الجوال</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-mobile-alt input-icon"></i>
+                                <input type="tel" class="form-control" id="phone" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="password">كلمة المرور</label>
+                                <input type="password" class="form-control" id="password" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="confirmPassword">تأكيد كلمة المرور</label>
+                                <input type="password" class="form-control" id="confirmPassword" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="agreeTerms" required>
+                            <label class="form-check-label" for="agreeTerms">
+                                أوافق على <a href="#">شروط الاستخدام</a> و <a href="#">سياسة الخصوصية</a>
+                            </label>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary btn-block" id="next-to-step-2">
+                                التالي <i class="fas fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- الخطوة 2: نوع المستخدم -->
+                <div class="step-content" id="step-2">
+                    <div class="user-type-selection">
+                        <div class="user-type-card" data-type="buyer">
+                            <div class="user-type-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="user-type-title">مشتري</div>
+                            <div class="user-type-desc">
+                                أبحث عن مواشي، أعلاف، أو منتجات زراعية للشراء
+                            </div>
+                        </div>
+                        
+                        <div class="user-type-card" data-type="seller">
+                            <div class="user-type-icon">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="user-type-title">بائع</div>
+                            <div class="user-type-desc">
+                                أملك مزرعة أو متجر وأرغب في عرض منتجاتي للبيع
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- معلومات إضافية للبائع -->
+                    <div id="seller-info" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label" for="farmName">اسم المزرعة/المتجر</label>
+                            <input type="text" class="form-control" id="farmName">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="commercialRegister">السجل التجاري (اختياري)</label>
+                            <input type="text" class="form-control" id="commercialRegister">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">موقع المزرعة/المتجر</label>
+                            <div class="location-controls">
+                                <button type="button" class="btn btn-outline" id="getCurrentLocation">
+                                    <i class="fas fa-location-arrow"></i> تحديد موقعي الحالي
+                                </button>
+                                <button type="button" class="btn btn-outline" id="searchLocation">
+                                    <i class="fas fa-search"></i> البحث عن موقع
+                                </button>
+                            </div>
+                            <div class="map-container" id="locationMap">
+                                <!-- سيتم تحميل الخريطة هنا -->
+                                <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #f5f5f5;">
+                                    <p>سيتم تحميل الخريطة هنا</p>
+                                </div>
+                            </div>
+                            <div class="location-details" id="locationDetails" style="display: none;">
+                                <h4>تفاصيل الموقع:</h4>
+                                <div class="location-info">
+                                    <p><strong>العنوان:</strong> <span id="locationAddress">-</span></p>
+                                    <p><strong>الإحداثيات:</strong> <span id="locationCoordinates">-</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="back-to-step-1">
+                            <i class="fas fa-arrow-right"></i> السابق
+                        </button>
+                        <button type="button" class="btn btn-primary" id="next-to-step-3">
+                            التالي <i class="fas fa-arrow-left"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- الخطوة 3: التحقق -->
+                <div class="step-content" id="step-3">
+                    <div class="form-group">
+                        <label class="form-label">أدخل رمز التحقق المرسل إلى جوالك</label>
+                        <div class="verification-code" style="display: flex; gap: 10px; margin-bottom: 15px;">
+                            <input type="text" class="form-control" maxlength="1" required style="text-align: center;">
+                            <input type="text" class="form-control" maxlength="1" required style="text-align: center;">
+                            <input type="text" class="form-control" maxlength="1" required style="text-align: center;">
+                            <input type="text" class="form-control" maxlength="1" required style="text-align: center;">
+                            <input type="text" class="form-control" maxlength="1" required style="text-align: center;">
+                            <input type="text" class="form-control" maxlength="1" required style="text-align: center;">
+                        </div>
+                        <div class="countdown" style="text-align: center; margin-bottom: 15px;">إعادة الإرسال بعد: 02:00</div>
+                        <div class="resend-link" style="text-align: center;">
+                            <a href="#">إعادة إرسال الرمز</a>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="back-to-step-2">
+                            <i class="fas fa-arrow-right"></i> السابق
+                        </button>
+                        <button type="button" class="btn btn-primary" id="complete-registration">
+                            <i class="fas fa-check"></i> إنشاء الحساب
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="form-footer">
+                    <p>لديك حساب بالفعل؟ <a href="login.html">سجل الدخول الآن</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- القائمة السفلية -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a href="auctions.html" class="nav-item">
+            <i class="fas fa-gavel"></i>
+            <span>المزادات</span>
+        </a>
+        <a href="favorites.html" class="nav-item">
+            <i class="fas fa-heart"></i>
+            <span>المفضلة</span>
+        </a>
+        <a href="messages.html" class="nav-item">
+            <i class="fas fa-envelope"></i>
+            <span>الرسائل</span>
+        </a>
+        <a href="profile.html" class="nav-item active">
+            <i class="fas fa-user"></i>
+            <span>حسابي</span>
+        </a>
+    </nav>
+
+    <script>
+        // التحكم في خطوات التسجيل
+        document.getElementById('next-to-step-2').addEventListener('click', function() {
+            // التحقق من صحة البيانات في الخطوة 1
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const agreeTerms = document.getElementById('agreeTerms').checked;
+            
+            if (!firstName || !lastName || !email || !phone || !password || !confirmPassword) {
+                alert('يرجى ملء جميع الحقول المطلوبة');
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                alert('يرجى إدخال بريد إلكتروني صحيح');
+                return;
+            }
+            
+            if (!validatePhone(phone)) {
+                alert('يرجى إدخال رقم جوال صحيح');
+                return;
+            }
+            
+            if (password.length < 6) {
+                alert('كلمة المرور يجب أن تكون 6 أحرف على الأقل');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('كلمات المرور غير متطابقة');
+                return;
+            }
+            
+            if (!agreeTerms) {
+                alert('يجب الموافقة على الشروط والأحكام');
+                return;
+            }
+            
+            // الانتقال إلى الخطوة 2
+            changeStep(2);
+        });
+        
+        document.getElementById('back-to-step-1').addEventListener('click', function() {
+            changeStep(1);
+        });
+        
+        document.getElementById('next-to-step-3').addEventListener('click', function() {
+            // التحقق من اختيار نوع المستخدم
+            const selectedUserType = document.querySelector('.user-type-card.selected');
+            if (!selectedUserType) {
+                alert('يرجى اختيار نوع المستخدم');
+                return;
+            }
+            
+            // إذا كان المستخدم بائع، التحقق من إدخال اسم المزرعة
+            if (selectedUserType.getAttribute('data-type') === 'seller') {
+                const farmName = document.getElementById('farmName').value;
+                if (!farmName) {
+                    alert('يرجى إدخال اسم المزرعة/المتجر');
+                    return;
+                }
+            }
+            
+            // الانتقال إلى الخطوة 3
+            changeStep(3);
+            
+            // محاكاة إرسال رمز التحقق
+            console.log('تم إرسال رمز التحقق إلى الجوال');
+        });
+        
+        document.getElementById('back-to-step-2').addEventListener('click', function() {
+            changeStep(2);
+        });
+        
+        document.getElementById('complete-registration').addEventListener('click', function() {
+            // محاكاة التحقق الناجح وإنشاء الحساب
+            alert('تم إنشاء الحساب بنجاح!');
+            window.location.href = 'profile.html';
+        });
+        
+        // اختيار نوع المستخدم
+        document.querySelectorAll('.user-type-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // إزالة التحديد من جميع البطاقات
+                document.querySelectorAll('.user-type-card').forEach(c => {
+                    c.classList.remove('selected');
+                });
+                
+                // إضافة التحديد للبطاقة المختارة
+                this.classList.add('selected');
+                
+                // إظهار/إخفاء معلومات البائع
+                if (this.getAttribute('data-type') === 'seller') {
+                    document.getElementById('seller-info').style.display = 'block';
+                } else {
+                    document.getElementById('seller-info').style.display = 'none';
+                }
+            });
+        });
+        
+        // تغيير الخطوة
+        function changeStep(stepNumber) {
+            // تحديث الخطوات
+            document.querySelectorAll('.step').forEach(step => {
+                const stepData = parseInt(step.getAttribute('data-step'));
+                
+                if (stepData === stepNumber) {
+                    step.classList.add('active');
+                    step.classList.remove('completed');
+                } else if (stepData < stepNumber) {
+                    step.classList.remove('active');
+                    step.classList.add('completed');
+                } else {
+                    step.classList.remove('active');
+                    step.classList.remove('completed');
+                }
+            });
+            
+            // إظهار محتوى الخطوة المحددة
+            document.querySelectorAll('.step-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            document.getElementById(`step-${stepNumber}`).classList.add('active');
+        }
+        
+        // التحقق من صحة رقم الجوال
+        function validatePhone(phone) {
+            const phoneRegex = /^(05)[0-9]{8}$/;
+            return phoneRegex.test(phone);
+        }
+        
+        // التحقق من صحة البريد الإلكتروني
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        // رفع صورة الملف الشخصي
+        document.getElementById('profilePicture').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('profilePreview');
+                    preview.innerHTML = '';
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    preview.appendChild(img);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // تحديد الموقع الحالي
+        document.getElementById('getCurrentLocation').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        
+                        // عرض الإحداثيات
+                        document.getElementById('locationCoordinates').textContent = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+                        
+                        // محاكاة الحصول على العنوان (في التطبيق الحقيقي، يمكن استخدام خدمة Geocoding)
+                        document.getElementById('locationAddress').textContent = 'جاري الحصول على العنوان...';
+                        
+                        // محاكاة الحصول على العنوان بعد تأخير
+                        setTimeout(() => {
+                            document.getElementById('locationAddress').textContent = 'الرياض، حي الملز، شارع الملك فهد';
+                        }, 1500);
+                        
+                        // إظهار تفاصيل الموقع
+                        document.getElementById('locationDetails').style.display = 'block';
+                        
+                        // محاكاة تحديث الخريطة
+                        updateMap(lat, lng);
+                    },
+                    function(error) {
+                        alert('تعذر الحصول على موقعك الحالي. يرجى التأكد من تفعيل خدمة الموقع.');
+                        console.error('خطأ في الحصول على الموقع:', error);
+                    }
+                );
+            } else {
+                alert('متصفحك لا يدعم خدمة تحديد الموقع.');
+            }
+        });
+        
+        // البحث عن موقع
+        document.getElementById('searchLocation').addEventListener('click', function() {
+            const address = prompt('أدخل العنوان الذي تريد البحث عنه:');
+            if (address) {
+                // محاكاة البحث عن موقع
+                document.getElementById('locationAddress').textContent = address;
+                document.getElementById('locationCoordinates').textContent = '24.7136, 46.6753';
+                document.getElementById('locationDetails').style.display = 'block';
+                
+                // محاكاة تحديث الخريطة
+                updateMap(24.7136, 46.6753);
+            }
+        });
+        
+        // تحديث الخريطة (محاكاة)
+        function updateMap(lat, lng) {
+            const mapContainer = document.getElementById('locationMap');
+            mapContainer.innerHTML = `
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; background: #f5f5f5;">
+                    <p>خريطة تفاعلية للموقع</p>
+                    <p style="font-size: 14px; margin-top: 10px;">الإحداثيات: ${lat.toFixed(6)}, ${lng.toFixed(6)}</p>
+                    <div style="width: 200px; height: 150px; background: #ddd; margin-top: 10px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-map-marker-alt" style="font-size: 40px; color: var(--primary);"></i>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

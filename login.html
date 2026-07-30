@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - أنعام السعودية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8B4513;
+            --secondary: #A0522D;
+            --accent: #D2691E;
+            --light: #F5F5DC;
+            --dark: #654321;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --shadow-lg: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* الهيدر */
+        .main-header {
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .header-top {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* محتوى الصفحة */
+        .login-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+        }
+
+        .login-header {
+            background: var(--primary);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .login-header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .login-header p {
+            opacity: 0.9;
+        }
+
+        .login-body {
+            padding: 30px;
+        }
+
+        .login-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .login-tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .login-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.2);
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        .input-with-icon .form-control {
+            padding-left: 45px;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            width: 100%;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: #777;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #ddd;
+        }
+
+        .divider span {
+            padding: 0 15px;
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .login-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .verification-code {
+            display: flex;
+            gap: 10px;
+        }
+
+        .verification-code input {
+            flex: 1;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .countdown {
+            text-align: center;
+            margin-top: 10px;
+            color: #777;
+        }
+
+        .resend-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .resend-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* القائمة السفلية */
+        .mobile-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            font-size: 12px;
+            padding: 5px;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        /* التجاوب */
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 0 15px;
+            }
+            
+            .verification-code {
+                flex-wrap: wrap;
+            }
+            
+            .verification-code input {
+                min-width: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر -->
+    <header class="main-header">
+        <div class="header-top">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-paw"></i>
+                    <span>أنعام السعودية</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- محتوى الصفحة -->
+    <main class="login-main">
+        <div class="login-container">
+            <div class="login-header">
+                <h1>مرحباً بعودتك</h1>
+                <p>سجل الدخول إلى حسابك للمتابعة</p>
+            </div>
+            
+            <div class="login-body">
+                <div class="login-tabs">
+                    <div class="login-tab active" data-tab="phone">رقم الجوال</div>
+                    <div class="login-tab" data-tab="email">البريد الإلكتروني</div>
+                </div>
+                
+                <!-- تسجيل الدخول برقم الجوال -->
+                <div class="tab-content active" id="phone-tab">
+                    <form id="phone-login-form">
+                        <div class="form-group">
+                            <label class="form-label" for="phone">رقم الجوال</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-mobile-alt input-icon"></i>
+                                <input type="tel" class="form-control" id="phone" placeholder="05XXXXXXXX" required>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> إرسال رمز التحقق
+                        </button>
+                    </form>
+                    
+                    <div id="phone-verification" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label">أدخل رمز التحقق</label>
+                            <div class="verification-code">
+                                <input type="text" class="form-control" maxlength="1" required>
+                                <input type="text" class="form-control" maxlength="1" required>
+                                <input type="text" class="form-control" maxlength="1" required>
+                                <input type="text" class="form-control" maxlength="1" required>
+                                <input type="text" class="form-control" maxlength="1" required>
+                                <input type="text" class="form-control" maxlength="1" required>
+                            </div>
+                            <div class="countdown" id="phone-countdown">إعادة الإرسال بعد: 02:00</div>
+                            <div class="resend-link">
+                                <a href="#" id="resend-phone">إعادة إرسال الرمز</a>
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="btn btn-primary" id="verify-phone">
+                            <i class="fas fa-check"></i> تأكيد الرمز
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- تسجيل الدخول بالبريد الإلكتروني -->
+                <div class="tab-content" id="email-tab">
+                    <form id="email-login-form">
+                        <div class="form-group">
+                            <label class="form-label" for="email">البريد الإلكتروني</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope input-icon"></i>
+                                <input type="email" class="form-control" id="email" placeholder="example@domain.com" required>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> إرسال رمز التحقق
+                        </button>
+                    </form>
+                    
+                    <div id="email-verification" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label">أدخل رمز التحقق</label>
+                            <div class="verification-code">
+                                <input type="text" class="form-control" maxlength="1" required>
+                                <input type="text" class="form-control" maxlength="1" required>
+                                <input type="text" class="form-control" maxlength="1" required>
+                                <input type="text" class="form-control" maxlength="1" required>
+                                <input type="text" class="form-control" maxlength="1" required>
+                                <input type="text" class="form-control" maxlength="1" required>
+                            </div>
+                            <div class="countdown" id="email-countdown">إعادة الإرسال بعد: 02:00</div>
+                            <div class="resend-link">
+                                <a href="#" id="resend-email">إعادة إرسال الرمز</a>
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="btn btn-primary" id="verify-email">
+                            <i class="fas fa-check"></i> تأكيد الرمز
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="divider">
+                    <span>أو</span>
+                </div>
+                
+                <button class="btn btn-outline">
+                    <i class="fas fa-user-plus"></i> إنشاء حساب جديد
+                </button>
+                
+                <div class="login-footer">
+                    <p>ليس لديك حساب؟ <a href="register.html">سجل الآن</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- القائمة السفلية -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a href="auctions.html" class="nav-item">
+            <i class="fas fa-gavel"></i>
+            <span>المزادات</span>
+        </a>
+        <a href="favorites.html" class="nav-item">
+            <i class="fas fa-heart"></i>
+            <span>المفضلة</span>
+        </a>
+        <a href="messages.html" class="nav-item">
+            <i class="fas fa-envelope"></i>
+            <span>الرسائل</span>
+        </a>
+        <a href="profile.html" class="nav-item active">
+            <i class="fas fa-user"></i>
+            <span>حسابي</span>
+        </a>
+    </nav>
+
+    <script>
+        // تبديل التبويبات
+        document.querySelectorAll('.login-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // إزالة النشاط من جميع التبويبات
+                document.querySelectorAll('.login-tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                
+                // إخفاء جميع محتويات التبويبات
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // إضافة النشاط للتبويب المحدد
+                this.classList.add('active');
+                
+                // إظهار محتوى التبويب المحدد
+                const tabId = this.getAttribute('data-tab') + '-tab';
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // إرسال رمز التحقق للجوال
+        document.getElementById('phone-login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const phone = document.getElementById('phone').value;
+            
+            if (validatePhone(phone)) {
+                // إخفاء النموذج وإظهار التحقق
+                document.getElementById('phone-login-form').style.display = 'none';
+                document.getElementById('phone-verification').style.display = 'block';
+                
+                // بدء العد التنازلي
+                startCountdown('phone-countdown', 120);
+                
+                // محاكاة إرسال الرمز (في التطبيق الحقيقي سيتم إرساله بالفعل)
+                console.log('تم إرسال رمز التحقق إلى: ' + phone);
+            } else {
+                alert('يرجى إدخال رقم جوال صحيح');
+            }
+        });
+
+        // إرسال رمز التحقق للبريد الإلكتروني
+        document.getElementById('email-login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            
+            if (validateEmail(email)) {
+                // إخفاء النموذج وإظهار التحقق
+                document.getElementById('email-login-form').style.display = 'none';
+                document.getElementById('email-verification').style.display = 'block';
+                
+                // بدء العد التنازلي
+                startCountdown('email-countdown', 120);
+                
+                // محاكاة إرسال الرمز (في التطبيق الحقيقي سيتم إرساله بالفعل)
+                console.log('تم إرسال رمز التحقق إلى: ' + email);
+            } else {
+                alert('يرجى إدخال بريد إلكتروني صحيح');
+            }
+        });
+
+        // تأكيد رمز الجوال
+        document.getElementById('verify-phone').addEventListener('click', function() {
+            // محاكاة التحقق الناجح
+            window.location.href = 'profile.html';
+        });
+
+        // تأكيد رمز البريد الإلكتروني
+        document.getElementById('verify-email').addEventListener('click', function() {
+            // محاكاة التحقق الناجح
+            window.location.href = 'profile.html';
+        });
+
+        // إعادة إرسال رمز الجوال
+        document.getElementById('resend-phone').addEventListener('click', function(e) {
+            e.preventDefault();
+            startCountdown('phone-countdown', 120);
+            console.log('تم إعادة إرسال رمز التحقق للجوال');
+        });
+
+        // إعادة إرسال رمز البريد الإلكتروني
+        document.getElementById('resend-email').addEventListener('click', function(e) {
+            e.preventDefault();
+            startCountdown('email-countdown', 120);
+            console.log('تم إعادة إرسال رمز التحقق للبريد الإلكتروني');
+        });
+
+        // وظيفة بدء العد التنازلي
+        function startCountdown(elementId, seconds) {
+            const countdownElement = document.getElementById(elementId);
+            let timeLeft = seconds;
+            
+            const countdownInterval = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const secs = timeLeft % 60;
+                
+                countdownElement.textContent = `إعادة الإرسال بعد: ${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownElement.textContent = 'يمكنك الآن إعادة إرسال الرمز';
+                }
+                
+                timeLeft--;
+            }, 1000);
+        }
+
+        // التحقق من صحة رقم الجوال
+        function validatePhone(phone) {
+            const phoneRegex = /^(05)[0-9]{8}$/;
+            return phoneRegex.test(phone);
+        }
+
+        // التحقق من صحة البريد الإلكتروني
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // الانتقال إلى صفحة التسجيل
+        document.querySelector('.btn-outline').addEventListener('click', function() {
+            window.location.href = 'register.html';
+        });
+    </script>
+</body>
+</html>

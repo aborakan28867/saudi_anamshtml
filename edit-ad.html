@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعديل الإعلان - أنعام السعودية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8B4513;
+            --secondary: #A0522D;
+            --accent: #D2691E;
+            --light: #F5F5DC;
+            --dark: #654321;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --shadow-lg: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* الهيدر */
+        .main-header {
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .header-top {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* محتوى الصفحة */
+        .edit-ad-main {
+            flex: 1;
+            padding: 40px 0;
+        }
+
+        .edit-ad-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .edit-ad-header {
+            background: var(--primary);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .edit-ad-header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .edit-ad-header p {
+            opacity: 0.9;
+        }
+
+        .edit-ad-body {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.2);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        .input-with-icon .form-control {
+            padding-left: 45px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-col {
+            flex: 1;
+        }
+
+        .image-upload-container {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .image-upload-container:hover {
+            border-color: var(--primary);
+        }
+
+        .image-upload-icon {
+            font-size: 40px;
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        .image-upload-text {
+            margin-bottom: 15px;
+        }
+
+        .image-upload-text strong {
+            color: var(--primary);
+        }
+
+        .image-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .preview-item {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-remove {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            background: rgba(220, 53, 69, 0.8);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        /* القائمة السفلية */
+        .mobile-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            font-size: 12px;
+            padding: 5px;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        /* التجاوب */
+        @media (max-width: 768px) {
+            .edit-ad-container {
+                margin: 0 15px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر -->
+    <header class="main-header">
+        <div class="header-top">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-paw"></i>
+                    <span>أنعام السعودية</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- محتوى الصفحة -->
+    <main class="edit-ad-main">
+        <div class="edit-ad-container">
+            <div class="edit-ad-header">
+                <h1>تعديل الإعلان</h1>
+                <p>قم بتعديل بيانات إعلانك الحالي</p>
+            </div>
+            
+            <div class="edit-ad-body">
+                <form id="edit-ad-form">
+                    <div class="form-group">
+                        <label class="form-label" for="adType">نوع الإعلان</label>
+                        <select class="form-select" id="adType" required>
+                            <option value="">اختر نوع الإعلان</option>
+                            <option value="sell" selected>بيع</option>
+                            <option value="buy">شراء</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="category">الفئة</label>
+                        <select class="form-select" id="category" required>
+                            <option value="">اختر الفئة</option>
+                            <option value="cattle" selected>أبقار</option>
+                            <option value="sheep">أغنام</option>
+                            <option value="camels">إبل</option>
+                            <option value="horses">خيول</option>
+                            <option value="poultry">دواجن</option>
+                            <option value="feed">أعلاف</option>
+                            <option value="equipment">معدات زراعية</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="title">عنوان الإعلان</label>
+                        <input type="text" class="form-control" id="title" value="عجول سمنتة ممتازة للبيع" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="description">وصف الإعلان</label>
+                        <textarea class="form-control form-textarea" id="description" required>عجول سمنتة ممتازة، عمر 8-10 شهور، صحة ممتازة، جاهزة للذبح. الوزن التقريبي 250-300 كجم. متوفر 20 رأس.</textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label class="form-label" for="price">السعر (ريال سعودي)</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-money-bill-wave input-icon"></i>
+                                    <input type="number" class="form-control" id="price" value="8500" min="0" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label class="form-label" for="quantity">الكمية</label>
+                                <input type="number" class="form-control" id="quantity" value="20" min="1" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="location">الموقع</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-map-marker-alt input-icon"></i>
+                            <input type="text" class="form-control" id="location" value="الرياض، العارض" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">صور الإعلان</label>
+                        <div class="image-upload-container" id="imageUpload">
+                            <div class="image-upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <div class="image-upload-text">
+                                <p>اسحب وأفلت الصور هنا أو <strong>انقر للتصفح</strong></p>
+                                <p class="text-muted">يسمح بحد أقصى 10 صور (JPEG, PNG)</p>
+                            </div>
+                            <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
+                        </div>
+                        <div class="image-preview" id="imagePreview">
+                            <div class="preview-item">
+                                <img src="https://images.unsplash.com/photo-1599156226596-61e8e3f0f9df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="صورة الإعلان">
+                                <div class="preview-remove">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="cancelBtn">
+                            <i class="fas fa-times"></i> إلغاء
+                        </button>
+                        <button type="button" class="btn btn-danger" id="deleteBtn">
+                            <i class="fas fa-trash"></i> حذف الإعلان
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> حفظ التعديلات
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- القائمة السفلية -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a href="auctions.html" class="nav-item">
+            <i class="fas fa-gavel"></i>
+            <span>المزادات</span>
+        </a>
+        <a href="favorites.html" class="nav-item">
+            <i class="fas fa-heart"></i>
+            <span>المفضلة</span>
+        </a>
+        <a href="messages.html" class="nav-item">
+            <i class="fas fa-envelope"></i>
+            <span>الرسائل</span>
+        </a>
+        <a href="profile.html" class="nav-item active">
+            <i class="fas fa-user"></i>
+            <span>حسابي</span>
+        </a>
+    </nav>
+
+    <script>
+        // بيانات الإعلان الحالي (محاكاة)
+        const currentAd = {
+            id: 123,
+            type: "sell",
+            category: "cattle",
+            title: "عجول سمنتة ممتازة للبيع",
+            description: "عجول سمنتة ممتازة، عمر 8-10 شهور، صحة ممتازة، جاهزة للذبح. الوزن التقريبي 250-300 كجم. متوفر 20 رأس.",
+            price: 8500,
+            quantity: 20,
+            location: "الرياض، العارض",
+            images: [
+                "https://images.unsplash.com/photo-1599156226596-61e8e3f0f9df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+            ]
+        };
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeForm();
+            setupEventListeners();
+        });
+
+        // تهيئة النموذج ببيانات الإعلان الحالي
+        function initializeForm() {
+            document.getElementById('adType').value = currentAd.type;
+            document.getElementById('category').value = currentAd.category;
+            document.getElementById('title').value = currentAd.title;
+            document.getElementById('description').value = currentAd.description;
+            document.getElementById('price').value = currentAd.price;
+            document.getElementById('quantity').value = currentAd.quantity;
+            document.getElementById('location').value = currentAd.location;
+        }
+
+        // إعداد مستمعي الأحداث
+        function setupEventListeners() {
+            // رفع الصور
+            const imageUpload = document.getElementById('imageUpload');
+            const fileInput = document.getElementById('fileInput');
+            const imagePreview = document.getElementById('imagePreview');
+            
+            imageUpload.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            fileInput.addEventListener('change', function() {
+                const files = this.files;
+                
+                for (let i = 0; i < files.length; i++) {
+                    if (imagePreview.children.length >= 10) {
+                        alert('لا يمكن رفع أكثر من 10 صور');
+                        break;
+                    }
+                    
+                    const file = files[i];
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        const previewItem = document.createElement('div');
+                        previewItem.className = 'preview-item';
+                        
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        
+                        const removeBtn = document.createElement('div');
+                        removeBtn.className = 'preview-remove';
+                        removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                        removeBtn.addEventListener('click', function() {
+                            previewItem.remove();
+                        });
+                        
+                        previewItem.appendChild(img);
+                        previewItem.appendChild(removeBtn);
+                        imagePreview.appendChild(previewItem);
+                    }
+                    
+                    reader.readAsDataURL(file);
+                }
+                
+                // إعادة تعيين حقل الرفع للسماح برفع نفس الملف مرة أخرى
+                fileInput.value = '';
+            });
+
+            // إرسال النموذج
+            document.getElementById('edit-ad-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // التحقق من البيانات
+                const title = document.getElementById('title').value;
+                const description = document.getElementById('description').value;
+                const price = document.getElementById('price').value;
+                const location = document.getElementById('location').value;
+                
+                if (!title || !description || !price || !location) {
+                    alert('يرجى ملء جميع الحقول المطلوبة');
+                    return;
+                }
+                
+                // محاكاة حفظ التعديلات
+                alert('تم حفظ التعديلات بنجاح!');
+                window.location.href = 'profile.html';
+            });
+
+            // إلغاء التعديلات
+            document.getElementById('cancelBtn').addEventListener('click', function() {
+                if (confirm('هل تريد إلغاء التعديلات؟ سيتم فقدان جميع التغييرات غير المحفوظة.')) {
+                    window.location.href = 'profile.html';
+                }
+            });
+
+            // حذف الإعلان
+            document.getElementById('deleteBtn').addEventListener('click', function() {
+                if (confirm('هل أنت متأكد من حذف هذا الإعلان؟ لا يمكن التراجع عن هذا الإجراء.')) {
+                    // محاكاة حذف الإعلان
+                    alert('تم حذف الإعلان بنجاح');
+                    window.location.href = 'profile.html';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

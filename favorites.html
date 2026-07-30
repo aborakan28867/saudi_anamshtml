@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المفضلة - أنعام السعودية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8B4513;
+            --secondary: #A0522D;
+            --accent: #D2691E;
+            --light: #F5F5DC;
+            --dark: #654321;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --shadow-lg: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 70px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* الهيدر */
+        .main-header {
+            background: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-top {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        /* القائمة الجانبية */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: white;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 2000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .sidebar-title {
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        .close-sidebar {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            color: #666;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-menu a:hover {
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        .sidebar-menu a.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background: #eee;
+            margin: 20px 0;
+        }
+
+        /* قسم المفضلة */
+        .favorites-hero {
+            background: linear-gradient(rgba(139, 69, 19, 0.85), rgba(139, 69, 19, 0.9)), 
+                        url('https://images.unsplash.com/photo-1570042225831-d98fa757e08e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .favorites-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .favorites-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+
+        /* تبويبات المفضلة */
+        .favorites-tabs {
+            background: white;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .tabs-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 25px;
+            border: none;
+            background: #f8f9fa;
+            color: #666;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tab-btn .count {
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+
+        /* محتوى المفضلة */
+        .favorites-content {
+            padding: 30px 0;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            color: #888;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        /* شبكة العناصر المفضلة */
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .favorite-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .favorite-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .favorite-image {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .favorite-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .favorite-card:hover .favorite-image img {
+            transform: scale(1.05);
+        }
+
+        .favorite-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .auction-badge {
+            background: var(--warning);
+            color: #333;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .favorite-remove {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(220, 53, 69, 0.9);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .favorite-remove:hover {
+            background: var(--danger);
+            transform: scale(1.1);
+        }
+
+        .favorite-info {
+            padding: 20px;
+        }
+
+        .favorite-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .favorite-description {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .favorite-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .favorite-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .sar-symbol {
+            font-family: Arial, sans-serif;
+            font-weight: normal;
+            font-size: 16px;
+        }
+
+        .favorite-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .favorite-actions .btn {
+            flex: 1;
+        }
+
+        /* القائمة السفلية */
+        .mobile-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            font-size: 12px;
+            padding: 5px;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        /* التجاوب */
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .favorites-hero h1 {
+                font-size: 2rem;
+            }
+
+            .favorites-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .tab-btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر -->
+    <header class="main-header">
+        <div class="header-top">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-paw"></i>
+                    <span>أنعام السعودية</span>
+                </a>
+                <nav class="main-nav">
+                    <a href="index.html" class="nav-link">الرئيسية</a>
+                    <a href="ads.html" class="nav-link">الإعلانات</a>
+                    <a href="auctions.html" class="nav-link">المزادات</a>
+                    <a href="favorites.html" class="nav-link active">المفضلة</a>
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- القائمة الجانبية -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3 class="sidebar-title">القائمة</h3>
+            <button class="close-sidebar" id="closeSidebar">&times;</button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+            <li><a href="ads.html"><i class="fas fa-bullhorn"></i> الإعلانات</a></li>
+            <li><a href="auctions.html"><i class="fas fa-gavel"></i> المزادات</a></li>
+            <li><a href="favorites.html" class="active"><i class="fas fa-heart"></i> المفضلة</a></li>
+            <li><a href="messages.html"><i class="fas fa-envelope"></i> الرسائل</a></li>
+            <li><a href="profile.html"><i class="fas fa-user"></i> حسابي</a></li>
+            <div class="sidebar-divider"></div>
+            <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a></li>
+            <li><a href="register.html"><i class="fas fa-user-plus"></i> إنشاء حساب</a></li>
+            <li><a href="add-ad.html"><i class="fas fa-plus"></i> أضف إعلان</a></li>
+        </ul>
+    </div>
+
+    <!-- قسم المفضلة -->
+    <section class="favorites-hero">
+        <div class="container">
+            <h1><i class="fas fa-heart"></i> قائمة المفضلة</h1>
+            <p>إعلاناتك ومزاداتك المفضلة في مكان واحد</p>
+        </div>
+    </section>
+
+    <!-- تبويبات المفضلة -->
+    <section class="favorites-tabs">
+        <div class="container">
+            <div class="tabs-container">
+                <button class="tab-btn active" data-tab="ads">
+                    <i class="fas fa-bullhorn"></i> الإعلانات
+                    <span class="count">3</span>
+                </button>
+                <button class="tab-btn" data-tab="auctions">
+                    <i class="fas fa-gavel"></i> المزادات
+                    <span class="count">2</span>
+                </button>
+                <button class="tab-btn" data-tab="sellers">
+                    <i class="fas fa-store"></i> البائعين
+                    <span class="count">1</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- محتوى المفضلة -->
+    <main class="favorites-content">
+        <div class="container">
+            <!-- تبويب الإعلانات -->
+            <div class="tab-content active" id="ads-tab">
+                <div class="favorites-grid" id="adsFavorites">
+                    <!-- سيتم تعبئة الإعلانات المفضلة ديناميكياً -->
+                </div>
+            </div>
+
+            <!-- تبويب المزادات -->
+            <div class="tab-content" id="auctions-tab">
+                <div class="favorites-grid" id="auctionsFavorites">
+                    <!-- سيتم تعبئة المزادات المفضلة ديناميكياً -->
+                </div>
+            </div>
+
+            <!-- تبويب البائعين -->
+            <div class="tab-content" id="sellers-tab">
+                <div class="favorites-grid" id="sellersFavorites">
+                    <!-- سيتم تعبئة البائعين المفضلين ديناميكياً -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- القائمة السفلية -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a href="auctions.html" class="nav-item">
+            <i class="fas fa-gavel"></i>
+            <span>المزادات</span>
+        </a>
+        <a href="favorites.html" class="nav-item active">
+            <i class="fas fa-heart"></i>
+            <span>المفضلة</span>
+        </a>
+        <a href="messages.html" class="nav-item">
+            <i class="fas fa-envelope"></i>
+            <span>الرسائل</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>حسابي</span>
+        </a>
+    </nav>
+
+    <script>
+        // بيانات المفضلة
+        const favoritesData = {
+            ads: [
+                {
+                    id: 1,
+                    title: "قطيع أغنام نعيمي أصيل",
+                    description: "قطيع مكون من 50 رأس من الأغنام النعيمية، صحة ممتازة، عمر 8-12 شهر",
+                    image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                    price: 45000,
+                    location: "الرياض",
+                    date: "2024-01-15",
+                    type: "ad"
+                },
+                {
+                    id: 2,
+                    title: "إبل حوريّة للبيع",
+                    description: "إبل حوريّة أصيلة، عمر 4 سنوات، من أفضل السلالات، صحة ممتازة",
+                    image: "https://images.unsplash.com/photo-1599140780246-4f3a4d1f7156?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                    price: 120000,
+                    location: "مكة",
+                    date: "2024-01-14",
+                    type: "ad"
+                },
+                {
+                    id: 3,
+                    title: "أبقار فريزيان منتجة",
+                    description: "قطيع أبقار فريزيان منتج للحليب، صحة ممتازة، عمر 2-3 سنوات",
+                    image: "https://images.unsplash.com/photo-1599156226596-61e8e3f0f9df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                    price: 85000,
+                    location: "الدمام",
+                    date: "2024-01-13",
+                    type: "ad"
+                }
+            ],
+            auctions: [
+                {
+                    id: 101,
+                    title: "مزايدة على قطيع أغنام نعيمي",
+                    description: "قطيع مكون من 100 رأس من الأغنام النعيمية، صحة ممتازة، عمر 6-12 شهر",
+                    image: "https://images.unsplash.com/photo-1570042225831-d98fa757e08e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                    currentBid: 75000,
+                    timeLeft: "02:15:30",
+                    location: "الرياض",
+                    bidCount: 15,
+                    type: "auction"
+                },
+                {
+                    id: 102,
+                    title: "مزايدة إبل حوريّة نادرة",
+                    description: "إبل حوريّة أصيلة نادرة، عمر 5 سنوات، من أفضل السلالات العالمية",
+                    image: "https://images.unsplash.com/photo-1500595046743-cd271d694d30?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                    currentBid: 185000,
+                    timeLeft: "01:45:20",
+                    location: "مكة",
+                    bidCount: 8,
+                    type: "auction"
+                }
+            ],
+            sellers: [
+                {
+                    id: 201,
+                    name: "مزرعة الرياض للأغنام",
+                    description: "متخصصون في تربية الأغنام النعيمية منذ 15 عاماً",
+                    image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                    rating: 4.7,
+                    reviewCount: 124,
+                    location: "الرياض",
+                    type: "seller"
+                }
+            ]
+        };
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            displayFavorites();
+            setupEventListeners();
+            updateActiveNav();
+        });
+
+        // إعداد مستمعي الأحداث
+        function setupEventListeners() {
+            // فتح وإغلاق القائمة الجانبية
+            document.getElementById('menuToggle').addEventListener('click', openSidebar);
+            document.getElementById('closeSidebar').addEventListener('click', closeSidebar);
+            
+            // تبديل التبويبات
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    switchTab(tabName);
+                });
+            });
+        }
+
+        // فتح القائمة الجانبية
+        function openSidebar() {
+            document.getElementById('sidebar').classList.add('active');
+        }
+
+        // إغلاق القائمة الجانبية
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('active');
+        }
+
+        // تبديل التبويبات
+        function switchTab(tabName) {
+            // تحديث أزرار التبويبات
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+            
+            // تحديث محتوى التبويبات
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        // عرض العناصر المفضلة
+        function displayFavorites() {
+            displayAdsFavorites();
+            displayAuctionsFavorites();
+            displaySellersFavorites();
+        }
+
+        // عرض الإعلانات المفضلة
+        function displayAdsFavorites() {
+            const container = document.getElementById('adsFavorites');
+            
+            if (favoritesData.ads.length === 0) {
+                container.innerHTML = createEmptyState('ads');
+                return;
+            }
+
+            container.innerHTML = '';
+            favoritesData.ads.forEach(item => {
+                const card = createAdFavoriteCard(item);
+                container.appendChild(card);
+            });
+        }
+
+        // عرض المزادات المفضلة
+        function displayAuctionsFavorites() {
+            const container = document.getElementById('auctionsFavorites');
+            
+            if (favoritesData.auctions.length === 0) {
+                container.innerHTML = createEmptyState('auctions');
+                return;
+            }
+
+            container.innerHTML = '';
+            favoritesData.auctions.forEach(item => {
+                const card = createAuctionFavoriteCard(item);
+                container.appendChild(card);
+            });
+        }
+
+        // عرض البائعين المفضلين
+        function displaySellersFavorites() {
+            const container = document.getElementById('sellersFavorites');
+            
+            if (favoritesData.sellers.length === 0) {
+                container.innerHTML = createEmptyState('sellers');
+                return;
+            }
+
+            container.innerHTML = '';
+            favoritesData.sellers.forEach(item => {
+                const card = createSellerFavoriteCard(item);
+                container.appendChild(card);
+            });
+        }
+
+        // إنشاء بطاقة إعلان مفضل
+        function createAdFavoriteCard(item) {
+            const card = document.createElement('div');
+            card.className = 'favorite-card';
+            card.innerHTML = `
+                <div class="favorite-image">
+                    <img src="${item.image}" alt="${item.title}" loading="lazy">
+                    <span class="favorite-badge">إعلان</span>
+                    <button class="favorite-remove" onclick="removeFavorite(${item.id}, 'ad')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="favorite-info">
+                    <h3 class="favorite-title">${item.title}</h3>
+                    <p class="favorite-description">${item.description}</p>
+                    <div class="favorite-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> ${item.location}</span>
+                        <span><i class="fas fa-calendar"></i> ${formatDate(item.date)}</span>
+                    </div>
+                    <div class="favorite-price">
+                        <span class="sar-symbol">﷼</span> ${item.price.toLocaleString()}
+                    </div>
+                    <div class="favorite-actions">
+                        <button class="btn btn-primary btn-sm" onclick="viewItem(${item.id}, 'ad')">
+                            <i class="fas fa-eye"></i> عرض التفاصيل
+                        </button>
+                        <button class="btn btn-outline btn-sm" onclick="contactSeller(${item.id})">
+                            <i class="fas fa-envelope"></i> مراسلة
+                        </button>
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+
+        // إنشاء بطاقة مزاد مفضل
+        function createAuctionFavoriteCard(item) {
+            const card = document.createElement('div');
+            card.className = 'favorite-card';
+            card.innerHTML = `
+                <div class="favorite-image">
+                    <img src="${item.image}" alt="${item.title}" loading="lazy">
+                    <span class="favorite-badge auction-badge">مزاد</span>
+                    <button class="favorite-remove" onclick="removeFavorite(${item.id}, 'auction')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="favorite-info">
+                    <h3 class="favorite-title">${item.title}</h3>
+                    <p class="favorite-description">${item.description}</p>
+                    <div class="favorite-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> ${item.location}</span>
+                        <span><i class="fas fa-gavel"></i> ${item.bidCount} مزايدة</span>
+                    </div>
+                    <div class="favorite-price">
+                        <span class="sar-symbol">﷼</span> ${item.currentBid.toLocaleString()}
+                    </div>
+                    <div class="favorite-actions">
+                        <button class="btn btn-primary btn-sm" onclick="viewItem(${item.id}, 'auction')">
+                            <i class="fas fa-gavel"></i> انضم للمزايدة
+                        </button>
+                        <button class="btn btn-outline btn-sm" onclick="viewAuctionDetails(${item.id})">
+                            <i class="fas fa-eye"></i> التفاصيل
+                        </button>
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+
+        // إنشاء بطاقة بائع مفضل
+        function createSellerFavoriteCard(item) {
+            const card = document.createElement('div');
+            card.className = 'favorite-card';
+            card.innerHTML = `
+                <div class="favorite-image">
+                    <img src="${item.image}" alt="${item.name}" loading="lazy">
+                    <span class="favorite-badge">بائع</span>
+                    <button class="favorite-remove" onclick="removeFavorite(${item.id}, 'seller')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="favorite-info">
+                    <h3 class="favorite-title">${item.name}</h3>
+                    <p class="favorite-description">${item.description}</p>
+                    <div class="favorite-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> ${item.location}</span>
+                        <span><i class="fas fa-star"></i> ${item.rating} (${item.reviewCount} تقييم)</span>
+                    </div>
+                    <div class="favorite-actions">
+                        <button class="btn btn-primary btn-sm" onclick="viewSellerProfile(${item.id})">
+                            <i class="fas fa-store"></i> زيارة المتجر
+                        </button>
+                        <button class="btn btn-outline btn-sm" onclick="contactSeller(${item.id})">
+                            <i class="fas fa-envelope"></i> مراسلة
+                        </button>
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+
+        // إنشاء حالة فارغة
+        function createEmptyState(type) {
+            const messages = {
+                ads: {
+                    icon: 'fas fa-bullhorn',
+                    title: 'لا توجد إعلانات في المفضلة',
+                    message: 'يمكنك إضافة الإعلانات إلى المفضلة بالنقر على زر القلب في أي إعلان',
+                    button: 'تصفح الإعلانات',
+                    link: 'ads.html'
+                },
+                auctions: {
+                    icon: 'fas fa-gavel',
+                    title: 'لا توجد مزادات في المفضلة',
+                    message: 'يمكنك إضافة المزادات إلى المفضلة بالنقر على زر القلب في أي مزاد',
+                    button: 'تصفح المزادات',
+                    link: 'auctions.html'
+                },
+                sellers: {
+                    icon: 'fas fa-store',
+                    title: 'لا توجد بائعين في المفضلة',
+                    message: 'يمكنك إضافة البائعين إلى المفضلة من صفحة المتجر الخاص بهم',
+                    button: 'تصفح البائعين',
+                    link: 'sellers.html'
+                }
+            };
+
+            const msg = messages[type];
+            
+            return `
+                <div class="empty-state">
+                    <i class="${msg.icon}"></i>
+                    <h3>${msg.title}</h3>
+                    <p>${msg.message}</p>
+                    <a href="${msg.link}" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i> ${msg.button}
+                    </a>
+                </div>
+            `;
+        }
+
+        // إزالة من المفضلة
+        function removeFavorite(itemId, type) {
+            if (confirm('هل أنت متأكد من إزالة هذا العنصر من المفضلة؟')) {
+                // إزالة العنصر من البيانات
+                favoritesData[type + 's'] = favoritesData[type + 's'].filter(item => item.id !== itemId);
+                
+                // إعادة عرض العناصر
+                displayFavorites();
+                
+                // تحديث العداد
+                updateCounters();
+                
+                showToast('تمت الإزالة من المفضلة', 'warning');
+            }
+        }
+
+        // تحديث العدادات
+        function updateCounters() {
+            document.querySelector('[data-tab="ads"] .count').textContent = favoritesData.ads.length;
+            document.querySelector('[data-tab="auctions"] .count').textContent = favoritesData.auctions.length;
+            document.querySelector('[data-tab="sellers"] .count').textContent = favoritesData.sellers.length;
+        }
+
+        // عرض العنصر
+        function viewItem(itemId, type) {
+            if (type === 'ad') {
+                window.location.href = `ad-detail.html?id=${itemId}`;
+            } else if (type === 'auction') {
+                window.location.href = `auction-detail.html?id=${itemId}`;
+            }
+        }
+
+        // عرض تفاصيل المزاد
+        function viewAuctionDetails(auctionId) {
+            window.location.href = `auction-detail.html?id=${auctionId}`;
+        }
+
+        // عرض ملف البائع
+        function viewSellerProfile(sellerId) {
+            window.location.href = `seller-profile.html?id=${sellerId}`;
+        }
+
+        // مراسلة البائع
+        function contactSeller(sellerId) {
+            window.location.href = `messages.html?to=seller&id=${sellerId}`;
+        }
+
+        // تنسيق التاريخ
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('ar-SA');
+        }
+
+        // تحديث القائمة النشطة
+        function updateActiveNav() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            navItems.forEach(item => {
+                const href = item.getAttribute('href');
+                if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // عرض الإشعارات
+        function showToast(message, type = 'success') {
+            let toast = document.getElementById('toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'toast';
+                toast.style.cssText = `
+                    position: fixed;
+                    bottom: 80px;
+                    left: 20px;
+                    background: var(--success);
+                    color: white;
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    box-shadow: var(--shadow-lg);
+                    z-index: 10000;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    transform: translateX(-150%);
+                    transition: transform 0.3s ease;
+                    max-width: 300px;
+                `;
+                document.body.appendChild(toast);
+            }
+
+            toast.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check' : type === 'warning' ? 'exclamation-triangle' : 'info'}-circle"></i>
+                <span>${message}</span>
+            `;
+            
+            if (type === 'warning') {
+                toast.style.background = 'var(--warning)';
+                toast.style.color = '#333';
+            }
+
+            toast.style.transform = 'translateX(0)';
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateX(-150%)';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

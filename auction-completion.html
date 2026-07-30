@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إتمام المزاد - أنعام السعودية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8B4513;
+            --secondary: #A0522D;
+            --accent: #D2691E;
+            --light: #FDF6E3;
+            --dark: #5D4037;
+            --success: #27AE60;
+            --danger: #E74C3C;
+            --warning: #F39C12;
+            --info: #3498DB;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            --gradient: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
+        }
+
+        body {
+            background: #f8f9fa;
+            color: #2C3E50;
+            line-height: 1.6;
+            padding-bottom: 70px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* الهيدر */
+        .main-header {
+            background: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-top {
+            padding: 12px 0;
+            border-bottom: 1px solid #ECF0F1;
+        }
+
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--light);
+            transform: translateY(-1px);
+        }
+
+        /* محتوى الصفحة */
+        .completion-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .completion-header {
+            background: var(--gradient);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .completion-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
+        .completion-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .completion-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .completion-body {
+            padding: 40px 30px;
+        }
+
+        .auction-summary {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(139, 69, 19, 0.1);
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .summary-value {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .payment-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .payment-method {
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .payment-method.selected {
+            border-color: var(--primary);
+            background: rgba(139, 69, 19, 0.05);
+        }
+
+        .payment-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .payment-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .payment-desc {
+            font-size: 12px;
+            color: #7F8C8D;
+        }
+
+        .delivery-section {
+            margin-bottom: 30px;
+        }
+
+        .delivery-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .delivery-option {
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .delivery-option:hover {
+            border-color: var(--primary);
+        }
+
+        .delivery-option.selected {
+            border-color: var(--primary);
+            background: rgba(139, 69, 19, 0.05);
+        }
+
+        .delivery-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .delivery-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .delivery-name {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .delivery-price {
+            color: var(--success);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .delivery-desc {
+            font-size: 13px;
+            color: #7F8C8D;
+            line-height: 1.5;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .contact-info {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(139, 69, 19, 0.1);
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-details {
+            flex: 1;
+        }
+
+        .contact-label {
+            font-size: 13px;
+            color: #7F8C8D;
+            margin-bottom: 3px;
+        }
+
+        .contact-value {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* القائمة السفلية */
+        .mobile-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-top: 1px solid #ECF0F1;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #95A5A6;
+            font-size: 11px;
+            padding: 5px;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        /* التجاوب */
+        @media (max-width: 768px) {
+            .completion-container {
+                margin: 20px 15px;
+            }
+            
+            .completion-header {
+                padding: 30px 20px;
+            }
+            
+            .completion-title {
+                font-size: 1.6rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+            
+            .delivery-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر -->
+    <header class="main-header">
+        <div class="header-top">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-paw"></i>
+                    <span>أنعام السعودية</span>
+                </a>
+                <a href="auction-detail.html" class="back-btn">
+                    <i class="fas fa-arrow-right"></i>
+                    العودة للمزاد
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- محتوى الصفحة -->
+    <div class="container">
+        <div class="completion-container">
+            <div class="completion-header">
+                <div class="completion-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h1 class="completion-title">مبروك! لقد فزت بالمزاد</h1>
+                <p class="completion-subtitle">تم إتمام المزاد بنجاح، يرجى إكمال عملية الشراء</p>
+            </div>
+            
+            <div class="completion-body">
+                <!-- ملخص المزاد -->
+                <div class="auction-summary">
+                    <h3 class="section-title"><i class="fas fa-receipt"></i> ملخص المزاد</h3>
+                    <div class="summary-item">
+                        <span class="summary-label">المنتج المزاود عليه</span>
+                        <span class="summary-value">قطيع أغنام نعيمي أصيل - 100 رأس</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">سعر الفوز</span>
+                        <span class="summary-value">75,000 ر.س</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">البائع</span>
+                        <span class="summary-value">مزرعة الرياض للأغنام</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">موقع التسليم</span>
+                        <span class="summary-value">الرياض، العارض</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">موعد الاستلام</span>
+                        <span class="summary-value">خلال 3 أيام عمل</span>
+                    </div>
+                </div>
+
+                <!-- طريقة الدفع -->
+                <div class="payment-section">
+                    <h3 class="section-title"><i class="fas fa-credit-card"></i> اختر طريقة الدفع</h3>
+                    <div class="payment-methods">
+                        <div class="payment-method" onclick="selectPayment(this, 'card')">
+                            <div class="payment-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <div class="payment-name">البطاقة الإئتمانية</div>
+                            <div class="payment-desc">دفع آمن عبر البطاقات</div>
+                        </div>
+                        <div class="payment-method" onclick="selectPayment(this, 'bank')">
+                            <div class="payment-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div class="payment-name">التحويل البنكي</div>
+                            <div class="payment-desc">تحويل مباشر للحساب البنكي</div>
+                        </div>
+                        <div class="payment-method" onclick="selectPayment(this, 'apple')">
+                            <div class="payment-icon">
+                                <i class="fab fa-apple-pay"></i>
+                            </div>
+                            <div class="payment-name">Apple Pay</div>
+                            <div class="payment-desc">دفع سريع وآمن</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- خيارات التوصيل -->
+                <div class="delivery-section">
+                    <h3 class="section-title"><i class="fas fa-truck"></i> خيارات التوصيل</h3>
+                    <div class="delivery-options">
+                        <div class="delivery-option" onclick="selectDelivery(this, 'standard')">
+                            <div class="delivery-header">
+                                <div class="delivery-icon">
+                                    <i class="fas fa-truck"></i>
+                                </div>
+                                <div class="delivery-name">توصيل عادي</div>
+                            </div>
+                            <div class="delivery-price">مجاني</div>
+                            <div class="delivery-desc">التوصيل خلال 3-5 أيام عمل</div>
+                        </div>
+                        <div class="delivery-option" onclick="selectDelivery(this, 'express')">
+                            <div class="delivery-header">
+                                <div class="delivery-icon">
+                                    <i class="fas fa-shipping-fast"></i>
+                                </div>
+                                <div class="delivery-name">توصيل سريع</div>
+                            </div>
+                            <div class="delivery-price">500 ر.س</div>
+                            <div class="delivery-desc">التوصيل خلال 24-48 ساعة</div>
+                        </div>
+                        <div class="delivery-option" onclick="selectDelivery(this, 'pickup')">
+                            <div class="delivery-header">
+                                <div class="delivery-icon">
+                                    <i class="fas fa-store"></i>
+                                </div>
+                                <div class="delivery-name">استلام من المزرعة</div>
+                            </div>
+                            <div class="delivery-price">مجاني</div>
+                            <div class="delivery-desc">استلام شخصي من موقع البائع</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- معلومات الاتصال -->
+                <div class="contact-info">
+                    <h3 class="section-title"><i class="fas fa-user-circle"></i> معلومات الاتصال</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="contact-details">
+                            <div class="contact-label">المشتري</div>
+                            <div class="contact-value">أحمد محمد</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <div class="contact-label">رقم الجوال</div>
+                            <div class="contact-value">+966500000000</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <div class="contact-label">عنوان التسليم</div>
+                            <div class="contact-value">الرياض، حي الملز، شارع الملك فهد</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- أزرار الإجراء -->
+                <div class="action-buttons">
+                    <button class="btn btn-outline" onclick="contactSeller()">
+                        <i class="fas fa-comment"></i> تواصل مع البائع
+                    </button>
+                    <button class="btn btn-primary" onclick="completePurchase()" id="completeBtn">
+                        <i class="fas fa-check-circle"></i> إتمام عملية الشراء
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- القائمة السفلية للجوال -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            الرئيسية
+        </a>
+        <a href="auctions.html" class="nav-item">
+            <i class="fas fa-gavel"></i>
+            المزادات
+        </a>
+        <a href="favorites.html" class="nav-item">
+            <i class="far fa-heart"></i>
+            المفضلة
+        </a>
+        <a href="messages.html" class="nav-item">
+            <i class="far fa-envelope"></i>
+            الرسائل
+        </a>
+        <a href="profile.html" class="nav-item active">
+            <i class="far fa-user"></i>
+            حسابي
+        </a>
+    </nav>
+
+    <script>
+        // بيانات عملية الشراء
+        let purchaseData = {
+            paymentMethod: null,
+            deliveryOption: null,
+            totalAmount: 75000
+        };
+
+        // اختيار طريقة الدفع
+        function selectPayment(element, method) {
+            document.querySelectorAll('.payment-method').forEach(item => {
+                item.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            purchaseData.paymentMethod = method;
+            updateCompleteButton();
+        }
+
+        // اختيار طريقة التوصيل
+        function selectDelivery(element, option) {
+            document.querySelectorAll('.delivery-option').forEach(item => {
+                item.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            purchaseData.deliveryOption = option;
+            
+            // تحديث السعر الإجمالي
+            if (option === 'express') {
+                purchaseData.totalAmount = 75500;
+            } else {
+                purchaseData.totalAmount = 75000;
+            }
+            
+            updateCompleteButton();
+        }
+
+        // تحديث حالة زر الإتمام
+        function updateCompleteButton() {
+            const completeBtn = document.getElementById('completeBtn');
+            if (purchaseData.paymentMethod && purchaseData.deliveryOption) {
+                completeBtn.disabled = false;
+                completeBtn.innerHTML = `<i class="fas fa-check-circle"></i> إتمام عملية الشراء - ${purchaseData.totalAmount.toLocaleString()} ر.س`;
+            } else {
+                completeBtn.disabled = true;
+                completeBtn.innerHTML = `<i class="fas fa-check-circle"></i> إتمام عملية الشراء`;
+            }
+        }
+
+        // إتمام عملية الشراء
+        function completePurchase() {
+            const completeBtn = document.getElementById('completeBtn');
+            completeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري معالجة الطلب...';
+            completeBtn.disabled = true;
+
+            // محاكاة معالجة الدفع
+            setTimeout(() => {
+                alert('تم إتمام عملية الشراء بنجاح! سيتم إرسال تفاصيل الشحن إلى بريدك الإلكتروني.');
+                window.location.href = 'order-confirmation.html';
+            }, 3000);
+        }
+
+        // التواصل مع البائع
+        function contactSeller() {
+            alert('سيتم فتح نافذة المحادثة مع البائع');
+            // window.location.href = 'chat.html?sellerId=123';
+        }
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCompleteButton();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1736 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المزادات - أنعام السعودية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8B4513;
+            --secondary: #A0522D;
+            --accent: #D2691E;
+            --light: #FDF6E3;
+            --dark: #5D4037;
+            --success: #27AE60;
+            --danger: #E74C3C;
+            --warning: #F39C12;
+            --info: #3498DB;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            --gradient: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
+        }
+
+        body {
+            background: #f8f9fa;
+            color: #2C3E50;
+            line-height: 1.6;
+            padding-bottom: 70px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* الهيدر */
+        .main-header {
+            background: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-top {
+            padding: 12px 0;
+            border-bottom: 1px solid #ECF0F1;
+        }
+
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 24px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 5px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #7F8C8D;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .nav-link.active,
+        .nav-link:hover {
+            background: var(--gradient);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* القسم الرئيسي */
+        .hero-section {
+            background: var(--gradient);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.1;
+        }
+
+        .hero-section h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero-section p {
+            font-size: 1rem;
+            margin-bottom: 25px;
+            opacity: 0.95;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .hero-actions .btn {
+            padding: 12px 24px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        /* فلترة المزادات */
+        .auctions-filters {
+            background: white;
+            padding: 25px 0;
+            box-shadow: var(--shadow);
+        }
+
+        .filters-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            align-items: end;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-label {
+            font-size: 14px;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .filter-select {
+            padding: 10px 15px;
+            border: 2px solid #ECF0F1;
+            border-radius: 12px;
+            background: white;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            min-width: 160px;
+        }
+
+        .filter-select:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        /* التصفية المتقدمة */
+        .advanced-filters {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+
+        .advanced-filters.active {
+            display: block;
+        }
+
+        .advanced-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ECF0F1;
+        }
+
+        .advanced-title {
+            font-size: 1.2rem;
+            color: var(--dark);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .advanced-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .price-range {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .price-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 2px solid #ECF0F1;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .price-separator {
+            color: #7F8C8D;
+            font-weight: 600;
+        }
+
+        .filter-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .filter-checkbox input {
+            width: 18px;
+            height: 18px;
+        }
+
+        .filter-checkbox label {
+            font-size: 14px;
+            color: #2C3E50;
+            cursor: pointer;
+        }
+
+        .toggle-advanced {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 15px auto 0;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-advanced:hover {
+            color: var(--secondary);
+        }
+
+        /* شريط البحث */
+        .search-container {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto 20px;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            background: white;
+        }
+
+        .search-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: var(--primary);
+        }
+
+        /* شبكة المزادات */
+        .auctions-main {
+            padding: 40px 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            color: var(--dark);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+
+        .results-count {
+            color: #7F8C8D;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .view-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .view-btn {
+            background: white;
+            border: 2px solid #ECF0F1;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            color: #7F8C8D;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn.active {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .auctions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .auctions-grid.list-view {
+            grid-template-columns: 1fr;
+        }
+
+        .auction-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid #ECF0F1;
+        }
+
+        .auction-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--warning);
+        }
+
+        .auction-card.list-view {
+            display: flex;
+        }
+
+        .auction-card.list-view .auction-image {
+            width: 250px;
+            height: auto;
+        }
+
+        .auction-image {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auction-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .auction-card:hover .auction-image img {
+            transform: scale(1.05);
+        }
+
+        .auction-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--warning);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 700;
+            z-index: 2;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .auction-timer {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--danger);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            z-index: 2;
+        }
+
+        .auction-info {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .auction-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--dark);
+            line-height: 1.4;
+        }
+
+        .auction-description {
+            color: #7F8C8D;
+            font-size: 13px;
+            margin-bottom: 12px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .auction-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #95A5A6;
+            font-size: 12px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .current-bid {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .bid-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .bid-count {
+            color: #7F8C8D;
+        }
+
+        .auction-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .feature-tag {
+            background: var(--light);
+            color: var(--dark);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .auction-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .auction-actions .btn {
+            flex: 1;
+            padding: 10px 15px;
+            font-size: 13px;
+        }
+
+        .btn-pulse {
+            animation: btnPulse 2s infinite;
+        }
+
+        @keyframes btnPulse {
+            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+        }
+
+        /* أزرار التحميل */
+        .load-more {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .load-more-btn {
+            padding: 12px 30px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+        }
+
+        .load-more-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* القائمة السفلية للجوال */
+        .mobile-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-top: 1px solid #ECF0F1;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #95A5A6;
+            font-size: 11px;
+            padding: 5px;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        /* القائمة الجانبية للجوال */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background: white;
+            box-shadow: var(--shadow-lg);
+            transition: right 0.3s ease;
+            z-index: 1001;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .mobile-sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ECF0F1;
+        }
+
+        .sidebar-header h3 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .sidebar-close {
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: #7F8C8D;
+            cursor: pointer;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px;
+            text-decoration: none;
+            color: #2C3E50;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background: var(--gradient);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .sidebar-link i {
+            width: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* التجاوب */
+        @media (max-width: 768px) {
+            .main-nav,
+            .user-actions {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-section {
+                padding: 30px 0;
+            }
+
+            .hero-section h1 {
+                font-size: 1.6rem;
+            }
+
+            .hero-section p {
+                font-size: 0.95rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-actions .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .filters-container {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+            }
+
+            .filter-select {
+                min-width: auto;
+            }
+
+            .advanced-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .auctions-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .auction-card.list-view {
+                flex-direction: column;
+            }
+
+            .auction-card.list-view .auction-image {
+                width: 100%;
+                height: 180px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+            }
+
+            .auction-image {
+                height: 180px;
+            }
+
+            .auction-title {
+                font-size: 15px;
+            }
+
+            .current-bid {
+                font-size: 16px;
+            }
+
+            .view-options {
+                align-self: stretch;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 12px;
+            }
+
+            .hero-section h1 {
+                font-size: 1.4rem;
+            }
+
+            .hero-section p {
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .auction-title {
+                font-size: 14px;
+            }
+
+            .auction-description {
+                font-size: 12px;
+            }
+
+            .current-bid {
+                font-size: 15px;
+            }
+
+            .load-more-btn {
+                padding: 10px 25px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر -->
+    <header class="main-header">
+        <div class="header-top">
+            <div class="container">
+                <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="index.html" class="logo">
+                    <i class="fas fa-paw"></i>
+                    <span>أنعام السعودية</span>
+                </a>
+                <nav class="main-nav">
+                    <a href="index.html" class="nav-link">الرئيسية</a>
+                    <a href="ads.html" class="nav-link">الإعلانات</a>
+                    <a href="auctions.html" class="nav-link active">المزادات</a>
+                    <a href="favorites.html" class="nav-link">المفضلة</a>
+                </nav>
+                <div class="user-actions">
+                    <a href="login.html" class="btn btn-outline">تسجيل الدخول</a>
+                    <a href="register.html" class="btn btn-primary">إنشاء حساب</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- القائمة الجانبية للجوال -->
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="sidebar-header">
+            <h3>القائمة</h3>
+            <button class="sidebar-close" onclick="toggleSidebar()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.html" class="sidebar-link">
+                <i class="fas fa-home"></i>
+                الرئيسية
+            </a>
+            <a href="ads.html" class="sidebar-link">
+                <i class="fas fa-bullhorn"></i>
+                الإعلانات
+            </a>
+            <a href="auctions.html" class="sidebar-link active">
+                <i class="fas fa-gavel"></i>
+                المزادات
+            </a>
+            <a href="favorites.html" class="sidebar-link">
+                <i class="fas fa-heart"></i>
+                المفضلة
+            </a>
+            <a href="messages.html" class="sidebar-link">
+                <i class="fas fa-envelope"></i>
+                الرسائل
+            </a>
+            <a href="profile.html" class="sidebar-link">
+                <i class="fas fa-user"></i>
+                حسابي
+            </a>
+            <a href="login.html" class="sidebar-link">
+                <i class="fas fa-sign-in-alt"></i>
+                تسجيل الدخول
+            </a>
+            <a href="register.html" class="sidebar-link">
+                <i class="fas fa-user-plus"></i>
+                إنشاء حساب
+            </a>
+            <a href="add-auction.html" class="sidebar-link">
+                <i class="fas fa-plus"></i>
+                أضف مزاد
+            </a>
+        </nav>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- قسم البطل -->
+    <section class="hero-section">
+        <div class="container">
+            <h1><i class="fas fa-gavel"></i> المزادات الحية</h1>
+            <p>انضم إلى المزادات واربح أفضل الصفقات على المواشي والأعلاف</p>
+            <div class="hero-actions">
+                <a href="add-auction.html" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> إضافة مزاد جديد
+                </a>
+                <a href="#auctionsGrid" class="btn btn-outline" style="background: rgba(255,255,255,0.15); color: white; border-color: white;">
+                    <i class="fas fa-arrow-down"></i> تصفح المزادات
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- فلترة المزادات -->
+    <section class="auctions-filters">
+        <div class="container">
+            <!-- شريط البحث -->
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="ابحث في المزادات..." id="searchInput">
+                <button class="search-btn" onclick="performSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label class="filter-label">التصنيف</label>
+                    <select class="filter-select" id="categoryFilter">
+                        <option value="all">جميع التصنيفات</option>
+                        <option value="sheep">الأغنام</option>
+                        <option value="camel">الإبل</option>
+                        <option value="cow">الأبقار</option>
+                        <option value="goat">الماعز</option>
+                        <option value="poultry">الدواجن</option>
+                        <option value="feed">الأعلاف</option>
+                        <option value="grains">الحبوب</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">الموقع</label>
+                    <select class="filter-select" id="locationFilter">
+                        <option value="all">جميع المواقع</option>
+                        <option value="الرياض">الرياض</option>
+                        <option value="مكة">مكة</option>
+                        <option value="الدمام">الدمام</option>
+                        <option value="جدة">جدة</option>
+                        <option value="المدينة">المدينة</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">الحالة</label>
+                    <select class="filter-select" id="statusFilter">
+                        <option value="all">جميع المزادات</option>
+                        <option value="active">المزادات النشطة</option>
+                        <option value="hot">المزادات الساخنة</option>
+                        <option value="ending">تنتهي قريباً</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">الترتيب</label>
+                    <select class="filter-select" id="sortFilter">
+                        <option value="newest">الأحدث</option>
+                        <option value="ending-soon">تنتهي قريباً</option>
+                        <option value="bid-low">أقل مزايدة</option>
+                        <option value="bid-high">أعلى مزايدة</option>
+                        <option value="popular">الأكثر مزايدة</option>
+                    </select>
+                </div>
+                <button class="btn btn-outline" id="resetFilters">
+                    <i class="fas fa-redo"></i> إعادة تعيين
+                </button>
+            </div>
+
+            <!-- زر التصفية المتقدمة -->
+            <button class="toggle-advanced" id="toggleAdvanced">
+                <i class="fas fa-sliders-h"></i>
+                تصفية متقدمة
+            </button>
+
+            <!-- التصفية المتقدمة -->
+            <div class="advanced-filters" id="advancedFilters">
+                <div class="advanced-header">
+                    <h3 class="advanced-title">
+                        <i class="fas fa-filter"></i>
+                        التصفية المتقدمة
+                    </h3>
+                    <button class="btn btn-outline" onclick="resetAdvancedFilters()">
+                        <i class="fas fa-redo"></i>
+                        إعادة التعيين
+                    </button>
+                </div>
+                <div class="advanced-grid">
+                    <div class="filter-group">
+                        <label class="filter-label">نطاق السعر</label>
+                        <div class="price-range">
+                            <input type="number" class="price-input" id="minPrice" placeholder="الحد الأدنى">
+                            <span class="price-separator">-</span>
+                            <input type="number" class="price-input" id="maxPrice" placeholder="الحد الأقصى">
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">عدد المزايدات</label>
+                        <select class="filter-select" id="bidCountFilter">
+                            <option value="all">أي عدد</option>
+                            <option value="0">بدون مزايدات</option>
+                            <option value="5">5+ مزايدات</option>
+                            <option value="10">10+ مزايدات</option>
+                            <option value="20">20+ مزايدات</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">خيارات إضافية</label>
+                        <div class="filter-checkbox">
+                            <input type="checkbox" id="hotOnly" value="hot">
+                            <label for="hotOnly">المزادات الساخنة فقط</label>
+                        </div>
+                        <div class="filter-checkbox">
+                            <input type="checkbox" id="verifiedOnly" value="verified">
+                            <label for="verifiedOnly">بائعون موثوقون</label>
+                        </div>
+                        <div class="filter-checkbox">
+                            <input type="checkbox" id="featuredOnly" value="featured">
+                            <label for="featuredOnly">مزادات مميزة</label>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">وقت الانتهاء</label>
+                        <select class="filter-select" id="timeFilter">
+                            <option value="all">أي وقت</option>
+                            <option value="1h">أقل من ساعة</option>
+                            <option value="3h">أقل من 3 ساعات</option>
+                            <option value="6h">أقل من 6 ساعات</option>
+                            <option value="24h">أقل من 24 ساعة</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- محتوى المزادات -->
+    <main class="auctions-main">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-bolt"></i>
+                    المزادات الحية
+                </h2>
+                <div class="view-options">
+                    <button class="view-btn active" id="gridView" onclick="changeView('grid')">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <button class="view-btn" id="listView" onclick="changeView('list')">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+                <div class="results-count" id="resultsCount">يتم تحميل المزادات...</div>
+            </div>
+            
+            <div class="auctions-grid" id="auctionsGrid">
+                <!-- سيتم تعبئة المزادات ديناميكياً -->
+            </div>
+
+            <div class="load-more">
+                <button class="load-more-btn" onclick="loadMoreAuctions()">
+                    <i class="fas fa-redo"></i>
+                    تحميل المزيد
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- القائمة السفلية للجوال -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a href="ads.html" class="nav-item">
+            <i class="fas fa-bullhorn"></i>
+            <span>الإعلانات</span>
+        </a>
+        <a href="auctions.html" class="nav-item active">
+            <i class="fas fa-gavel"></i>
+            <span>المزادات</span>
+        </a>
+        <a href="favorites.html" class="nav-item">
+            <i class="fas fa-heart"></i>
+            <span>المفضلة</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>حسابي</span>
+        </a>
+    </nav>
+
+    <script>
+        // بيانات المزادات مع وقت انتهاء حقيقي
+        const auctionsData = [
+            {
+                id: 101,
+                title: "مزايدة على قطيع أغنام نعيمي",
+                description: "قطيع مكون من 100 رأس من الأغنام النعيمية، صحة ممتازة، عمر 6-12 شهر",
+                image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                currentBid: 75000,
+                startingPrice: 50000,
+                bidCount: 15,
+                endTime: new Date(Date.now() + 2 * 60 * 60 * 1000 + 15 * 60 * 1000 + 30 * 1000),
+                category: "sheep",
+                location: "الرياض",
+                isHot: true,
+                isVerified: true,
+                isFeatured: true,
+                features: ["عمر 6-12 شهر", "60 ذكر", "40 أنثى", "100 رأس"],
+                sellerRating: 4.8
+            },
+            {
+                id: 102,
+                title: "مزايدة إبل حوريّة نادرة",
+                description: "إبل حوريّة أصيلة نادرة، عمر 5 سنوات، من أفضل السلالات العالمية",
+                image: "https://images.unsplash.com/photo-1599140780246-4f3a4d1f7156?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                currentBid: 185000,
+                startingPrice: 120000,
+                bidCount: 8,
+                endTime: new Date(Date.now() + 1 * 60 * 60 * 1000 + 45 * 60 * 1000 + 20 * 1000),
+                category: "camel",
+                location: "مكة",
+                isHot: true,
+                isVerified: true,
+                isFeatured: false,
+                features: ["عمر 5 سنوات", "18 ذكر", "7 إناث", "25 رأس"],
+                sellerRating: 4.9
+            },
+            {
+                id: 103,
+                title: "مزايدة أبقار حلوب",
+                description: "قطيع أبقار فريزيان حلوب، إنتاجية عالية، صحة ممتازة",
+                image: "https://images.unsplash.com/photo-1599156226596-61e8e3f0f9df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                currentBid: 120000,
+                startingPrice: 80000,
+                bidCount: 12,
+                endTime: new Date(Date.now() + 4 * 60 * 60 * 1000 + 30 * 60 * 1000 + 15 * 1000),
+                category: "cow",
+                location: "الدمام",
+                isHot: false,
+                isVerified: true,
+                isFeatured: true,
+                features: ["عمر 2-3 سنوات", "40 أنثى", "40 رأس"],
+                sellerRating: 4.5
+            },
+            {
+                id: 104,
+                title: "مزايدة على أعلاف عالية الجودة",
+                description: "كمية كبيرة من الأعلاف عالية الجودة، مناسبة لجميع أنواع المواشي",
+                image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                currentBid: 45000,
+                startingPrice: 30000,
+                bidCount: 6,
+                endTime: new Date(Date.now() + 12 * 60 * 60 * 1000 + 20 * 60 * 1000 + 45 * 1000),
+                category: "feed",
+                location: "جدة",
+                isHot: false,
+                isVerified: false,
+                isFeatured: false,
+                features: ["5 أطنان", "جودة عالية", "مناسبة لجميع المواشي"],
+                sellerRating: 4.2
+            },
+            {
+                id: 105,
+                title: "مزايدة ماعز شامي أصيل",
+                description: "ماعز شامي أصيل، صحة ممتازة، عمر 1-2 سنة، مناسب للتكاثر",
+                image: "https://images.unsplash.com/photo-1500595046743-cd271d694d30?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                currentBid: 32000,
+                startingPrice: 20000,
+                bidCount: 3,
+                endTime: new Date(Date.now() + 6 * 60 * 60 * 1000 + 10 * 60 * 1000 + 15 * 1000),
+                category: "goat",
+                location: "المدينة",
+                isHot: false,
+                isVerified: true,
+                isFeatured: false,
+                features: ["عمر 1-2 سنة", "15 ذكر", "10 أنثى", "25 رأس"],
+                sellerRating: 4.7
+            },
+            {
+                id: 106,
+                title: "مزايدة دواجن لحم",
+                description: "كتاكيت دواجن لحم سريعة النمو، صحة ممتازة، معدل نمو عالي",
+                image: "https://images.unsplash.com/photo-1589923188657-2a9c21c03e5a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                currentBid: 18000,
+                startingPrice: 12000,
+                bidCount: 9,
+                endTime: new Date(Date.now() + 3 * 60 * 60 * 1000 + 5 * 60 * 1000 + 30 * 1000),
+                category: "poultry",
+                location: "الرياض",
+                isHot: true,
+                isVerified: false,
+                isFeatured: true,
+                features: ["1000 كتكوت", "سلالة ممتازة", "نمو سريع"],
+                sellerRating: 4.0
+            }
+        ];
+
+        // حالة التطبيق
+        let currentView = 'grid';
+        let currentPage = 1;
+        const auctionsPerPage = 6;
+        let filteredAuctions = [...auctionsData];
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            renderAuctions();
+            startAuctionTimers();
+            setupEventListeners();
+        });
+
+        // إعداد المستمعين للأحداث
+        function setupEventListeners() {
+            // تصفية متقدمة
+            document.getElementById('toggleAdvanced').addEventListener('click', function() {
+                const advancedFilters = document.getElementById('advancedFilters');
+                advancedFilters.classList.toggle('active');
+                this.querySelector('i').classList.toggle('fa-sliders-h');
+                this.querySelector('i').classList.toggle('fa-times');
+            });
+
+            // فلترة المزادات
+            document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+            document.getElementById('locationFilter').addEventListener('change', applyFilters);
+            document.getElementById('statusFilter').addEventListener('change', applyFilters);
+            document.getElementById('sortFilter').addEventListener('change', applyFilters);
+            document.getElementById('searchInput').addEventListener('input', applyFilters);
+            
+            // تصفية متقدمة
+            document.getElementById('minPrice').addEventListener('input', applyFilters);
+            document.getElementById('maxPrice').addEventListener('input', applyFilters);
+            document.getElementById('bidCountFilter').addEventListener('change', applyFilters);
+            document.getElementById('hotOnly').addEventListener('change', applyFilters);
+            document.getElementById('verifiedOnly').addEventListener('change', applyFilters);
+            document.getElementById('featuredOnly').addEventListener('change', applyFilters);
+            document.getElementById('timeFilter').addEventListener('change', applyFilters);
+            
+            // إعادة تعيين الفلاتر
+            document.getElementById('resetFilters').addEventListener('click', resetFilters);
+        }
+
+        // تطبيق التصفية
+        function applyFilters() {
+            const category = document.getElementById('categoryFilter').value;
+            const location = document.getElementById('locationFilter').value;
+            const status = document.getElementById('statusFilter').value;
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const minPrice = parseFloat(document.getElementById('minPrice').value) || 0;
+            const maxPrice = parseFloat(document.getElementById('maxPrice').value) || Infinity;
+            const bidCountFilter = document.getElementById('bidCountFilter').value;
+            const hotOnly = document.getElementById('hotOnly').checked;
+            const verifiedOnly = document.getElementById('verifiedOnly').checked;
+            const featuredOnly = document.getElementById('featuredOnly').checked;
+            const timeFilter = document.getElementById('timeFilter').value;
+            
+            // تصفية المزادات
+            filteredAuctions = auctionsData.filter(auction => {
+                // تصفية حسب التصنيف
+                if (category !== 'all' && auction.category !== category) return false;
+                
+                // تصفية حسب الموقع
+                if (location !== 'all' && auction.location !== location) return false;
+                
+                // تصفية حسب البحث
+                if (searchTerm && !auction.title.toLowerCase().includes(searchTerm) && 
+                    !auction.description.toLowerCase().includes(searchTerm)) return false;
+                
+                // تصفية حسب السعر
+                if (auction.currentBid < minPrice || auction.currentBid > maxPrice) return false;
+                
+                // تصفية حسب عدد المزايدات
+                if (bidCountFilter !== 'all') {
+                    const minBids = parseInt(bidCountFilter);
+                    if (auction.bidCount < minBids) return false;
+                }
+                
+                // تصفية حسب الخيارات الإضافية
+                if (hotOnly && !auction.isHot) return false;
+                if (verifiedOnly && !auction.isVerified) return false;
+                if (featuredOnly && !auction.isFeatured) return false;
+                
+                // تصفية حسب الوقت المتبقي
+                if (timeFilter !== 'all') {
+                    const timeLeft = auction.endTime - new Date();
+                    const hoursLeft = timeLeft / (1000 * 60 * 60);
+                    
+                    if (timeFilter === '1h' && hoursLeft > 1) return false;
+                    if (timeFilter === '3h' && hoursLeft > 3) return false;
+                    if (timeFilter === '6h' && hoursLeft > 6) return false;
+                    if (timeFilter === '24h' && hoursLeft > 24) return false;
+                }
+                
+                // تصفية حسب الحالة
+                const now = new Date();
+                if (status !== 'all') {
+                    if (status === 'active' && auction.endTime <= now) return false;
+                    if (status === 'hot' && (!auction.isHot || auction.endTime <= now)) return false;
+                    if (status === 'ending') {
+                        const timeLeft = auction.endTime - now;
+                        if (timeLeft <= 0 || timeLeft > 30 * 60 * 1000) return false;
+                    }
+                }
+                
+                return true;
+            });
+            
+            // ترتيب النتائج
+            const sortBy = document.getElementById('sortFilter').value;
+            switch(sortBy) {
+                case 'ending-soon':
+                    filteredAuctions.sort((a, b) => a.endTime - b.endTime);
+                    break;
+                case 'bid-low':
+                    filteredAuctions.sort((a, b) => a.currentBid - b.currentBid);
+                    break;
+                case 'bid-high':
+                    filteredAuctions.sort((a, b) => b.currentBid - a.currentBid);
+                    break;
+                case 'popular':
+                    filteredAuctions.sort((a, b) => b.bidCount - a.bidCount);
+                    break;
+                default: // الأحدث
+                    filteredAuctions.sort((a, b) => b.id - a.id);
+            }
+            
+            currentPage = 1;
+            renderAuctions();
+        }
+
+        // عرض المزادات
+        function renderAuctions() {
+            const auctionsGrid = document.getElementById('auctionsGrid');
+            const resultsCount = document.getElementById('resultsCount');
+            const startIndex = (currentPage - 1) * auctionsPerPage;
+            const endIndex = startIndex + auctionsPerPage;
+            const auctionsToShow = filteredAuctions.slice(0, endIndex);
+            
+            // تحديث عدد النتائج
+            resultsCount.textContent = `عرض ${auctionsToShow.length} من ${filteredAuctions.length} مزاد`;
+            
+            // عرض المزادات
+            auctionsGrid.innerHTML = '';
+            auctionsToShow.forEach(auction => {
+                const auctionCard = createAuctionCard(auction);
+                auctionsGrid.appendChild(auctionCard);
+            });
+            
+            // إخفاء زر تحميل المزيد إذا لم تكن هناك المزيد من المزادات
+            const loadMoreBtn = document.querySelector('.load-more-btn');
+            if (endIndex >= filteredAuctions.length) {
+                loadMoreBtn.style.display = 'none';
+            } else {
+                loadMoreBtn.style.display = 'inline-flex';
+            }
+        }
+
+        // إنشاء بطاقة مزاد
+        function createAuctionCard(auction) {
+            const card = document.createElement('div');
+            card.className = `auction-card ${currentView === 'list' ? 'list-view' : ''}`;
+            card.dataset.auctionId = auction.id;
+
+            // إنشاء قائمة المميزات
+            let featuresHTML = '';
+            if (auction.features && auction.features.length > 0) {
+                featuresHTML = `
+                    <div class="auction-features">
+                        ${auction.features.map(feature => `
+                            <span class="feature-tag">
+                                <i class="fas fa-check"></i> ${feature}
+                            </span>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            const timeLeft = calculateTimeLeft(auction.endTime);
+
+            // الشارات الإضافية
+            let badges = `<span class="auction-badge">${auction.isHot ? '🔥 مباشر' : 'مزاد'}</span>`;
+            if (auction.isFeatured) {
+                badges += '<span class="auction-badge" style="background: var(--success); top: 45px;">مميز</span>';
+            }
+            if (auction.isVerified) {
+                badges += '<span class="auction-badge" style="background: var(--info); top: 80px;">موثوق</span>';
+            }
+
+            card.innerHTML = `
+                <div class="auction-image">
+                    <img src="${auction.image}" alt="${auction.title}" loading="lazy">
+                    ${badges}
+                    <span class="auction-timer" id="timer-${auction.id}">${timeLeft}</span>
+                </div>
+                <div class="auction-info">
+                    <h3 class="auction-title">${auction.title}</h3>
+                    <p class="auction-description">${auction.description}</p>
+                    <div class="auction-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> ${auction.location}</span>
+                        <span><i class="fas fa-tag"></i> ${getCategoryName(auction.category)}</span>
+                        <span><i class="fas fa-star" style="color: #FFD700;"></i> ${auction.sellerRating}</span>
+                    </div>
+                    ${featuresHTML}
+                    <div class="current-bid">${auction.currentBid.toLocaleString()} ريال</div>
+                    <div class="bid-info">
+                        <span class="starting-price">ابتداء من: ${auction.startingPrice.toLocaleString()} ريال</span>
+                        <span class="bid-count">${auction.bidCount} مزايدة</span>
+                    </div>
+                    <div class="auction-actions">
+                        <button class="btn btn-danger btn-pulse" onclick="joinAuction(${auction.id})">
+                            <i class="fas fa-gavel"></i> انضم للمزايدة
+                        </button>
+                        <button class="btn btn-outline" onclick="toggleFavorite(${auction.id})">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <button class="btn btn-outline" onclick="shareAuction(${auction.id})">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // حساب الوقت المتبقي
+        function calculateTimeLeft(endTime) {
+            const now = new Date();
+            const difference = endTime - now;
+
+            if (difference <= 0) {
+                return 'انتهى';
+            }
+
+            const hours = Math.floor(difference / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // بدء العدادات التنازلية
+        function startAuctionTimers() {
+            setInterval(() => {
+                auctionsData.forEach(auction => {
+                    const timerElement = document.getElementById(`timer-${auction.id}`);
+                    if (timerElement) {
+                        const timeLeft = calculateTimeLeft(auction.endTime);
+                        timerElement.textContent = timeLeft;
+
+                        // تغيير اللون عندما يقل الوقت عن 5 دقائق
+                        if (auction.endTime - new Date() < 5 * 60 * 1000) {
+                            timerElement.style.background = 'var(--danger)';
+                            timerElement.style.animation = 'pulse 1s infinite';
+                        }
+                    }
+                });
+            }, 1000);
+        }
+
+        // الحصول على اسم التصنيف
+        function getCategoryName(category) {
+            const categories = {
+                'sheep': 'الأغنام',
+                'camel': 'الإبل',
+                'cow': 'الأبقار',
+                'goat': 'الماعز',
+                'poultry': 'الدواجن',
+                'feed': 'الأعلاف',
+                'grains': 'الحبوب'
+            };
+            return categories[category] || category;
+        }
+
+        // تغيير طريقة العرض
+        function changeView(view) {
+            currentView = view;
+            const gridViewBtn = document.getElementById('gridView');
+            const listViewBtn = document.getElementById('listView');
+            const auctionsGrid = document.getElementById('auctionsGrid');
+            
+            if (view === 'grid') {
+                gridViewBtn.classList.add('active');
+                listViewBtn.classList.remove('active');
+                auctionsGrid.classList.remove('list-view');
+            } else {
+                gridViewBtn.classList.remove('active');
+                listViewBtn.classList.add('active');
+                auctionsGrid.classList.add('list-view');
+            }
+            
+            renderAuctions();
+        }
+
+        // تحميل المزيد من المزادات
+        function loadMoreAuctions() {
+            currentPage++;
+            renderAuctions();
+            showToast('جاري تحميل المزيد من المزادات...', 'info');
+        }
+
+        // إعادة تعيين الفلاتر
+        function resetFilters() {
+            document.getElementById('categoryFilter').value = 'all';
+            document.getElementById('locationFilter').value = 'all';
+            document.getElementById('statusFilter').value = 'all';
+            document.getElementById('sortFilter').value = 'newest';
+            document.getElementById('searchInput').value = '';
+            
+            resetAdvancedFilters();
+            applyFilters();
+        }
+
+        // إعادة تعيين الفلاتر المتقدمة
+        function resetAdvancedFilters() {
+            document.getElementById('minPrice').value = '';
+            document.getElementById('maxPrice').value = '';
+            document.getElementById('bidCountFilter').value = 'all';
+            document.getElementById('hotOnly').checked = false;
+            document.getElementById('verifiedOnly').checked = false;
+            document.getElementById('featuredOnly').checked = false;
+            document.getElementById('timeFilter').value = 'all';
+        }
+
+        // البحث
+        function performSearch() {
+            applyFilters();
+        }
+
+        // الانضمام للمزايدة
+        function joinAuction(auctionId) {
+            window.location.href = `auction-detail.html?id=${auctionId}`;
+        }
+
+        // مشاركة المزاد
+        function shareAuction(auctionId) {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'مزاد أنعام السعودية',
+                    text: 'انضم إلى هذا المزاد المميز على منصة أنعام السعودية',
+                    url: `${window.location.origin}/auction-detail.html?id=${auctionId}`
+                })
+                .then(() => showToast('تم مشاركة المزاد بنجاح', 'success'))
+                .catch(() => showToast('لم يتم مشاركة المزاد', 'error'));
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                const url = `${window.location.origin}/auction-detail.html?id=${auctionId}`;
+                navigator.clipboard.writeText(url)
+                    .then(() => showToast('تم نسخ رابط المزاد', 'success'))
+                    .catch(() => showToast('لم يتم نسخ الرابط', 'error'));
+            }
+        }
+
+        // إضافة/إزالة من المفضلة
+        function toggleFavorite(auctionId) {
+            const btn = event.currentTarget;
+            const icon = btn.querySelector('i');
+            
+            if (icon.classList.contains('far')) {
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+                btn.style.color = '#e74c3c';
+                showToast('تمت الإضافة إلى المفضلة', 'success');
+            } else {
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+                btn.style.color = '';
+                showToast('تمت الإزالة من المفضلة', 'info');
+            }
+        }
+
+        // إظهار/إخفاء القائمة الجانبية
+        function toggleSidebar() {
+            const sidebar = document.getElementById('mobileSidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // تحديث القائمة النشطة
+        function updateActiveNav() {
+            const currentPage = window.location.pathname.split('/').pop();
+            
+            // تحديث القائمة السفلية
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                const href = item.getAttribute('href');
+                if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+
+            // تحديث التبويبات العلوية
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage || 
+                    (currentPage === '' && link.getAttribute('href') === 'index.html')) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            // تحديث القائمة الجانبية
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            sidebarLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage || 
+                    (currentPage === '' && link.getAttribute('href') === 'index.html')) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        // عرض رسائل التنبيه
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `
+                <div class="toast-content">
+                    <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'exclamation' : 'info'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+
+            // إضافة الأنماط
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%) translateY(-100px);
+                background: ${type === 'success' ? '#27ae60' : type === 'error' ? '#e74c3c' : '#3498db'};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                transition: all 0.3s ease;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            `;
+
+            document.body.appendChild(toast);
+
+            // إظهار الرسالة
+            setTimeout(() => {
+                toast.style.transform = 'translateX(-50%) translateY(0)';
+            }, 100);
+
+            // إخفاء الرسالة
+            setTimeout(() => {
+                toast.style.transform = 'translateX(-50%) translateY(-100px)';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

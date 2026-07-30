@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة مزاد - أنعام السعودية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8B4513;
+            --secondary: #A0522D;
+            --accent: #D2691E;
+            --light: #FDF6E3;
+            --dark: #5D4037;
+            --success: #27AE60;
+            --danger: #E74C3C;
+            --warning: #F39C12;
+            --info: #3498DB;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            --gradient: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
+        }
+
+        body {
+            background: #f8f9fa;
+            color: #2C3E50;
+            line-height: 1.6;
+            padding-bottom: 70px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* الهيدر */
+        .main-header {
+            background: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-top {
+            padding: 12px 0;
+            border-bottom: 1px solid #ECF0F1;
+        }
+
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 24px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--light);
+            transform: translateY(-1px);
+        }
+
+        /* محتوى الصفحة */
+        .add-auction-main {
+            padding: 30px 0;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .page-subtitle {
+            color: #7F8C8D;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .add-auction-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* تحقق البائع */
+        .seller-check {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .seller-check h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .seller-check p {
+            color: #7F8C8D;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        /* نموذج الإضافة */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 15px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ECF0F1;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ECF0F1;
+            border-radius: 12px;
+            font-size: 15px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-select:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7F8C8D;
+        }
+
+        .input-with-icon .form-control {
+            padding-left: 45px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-col {
+            flex: 1;
+        }
+
+        /* رفع الصور */
+        .image-upload-container {
+            border: 2px dashed #ECF0F1;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .image-upload-container:hover {
+            border-color: var(--primary);
+            background: var(--light);
+        }
+
+        .image-upload-icon {
+            font-size: 40px;
+            color: #7F8C8D;
+            margin-bottom: 15px;
+        }
+
+        .image-upload-text {
+            margin-bottom: 15px;
+        }
+
+        .image-upload-text strong {
+            color: var(--primary);
+        }
+
+        .image-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .preview-item {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid #ECF0F1;
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-remove {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            background: rgba(231, 76, 60, 0.9);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* إعدادات المزاد */
+        .auction-settings {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 25px;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* الأزرار */
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        /* القائمة السفلية */
+        .mobile-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-top: 1px solid #ECF0F1;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #95A5A6;
+            font-size: 11px;
+            padding: 5px;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        /* القائمة الجانبية للجوال */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background: white;
+            box-shadow: var(--shadow-lg);
+            transition: right 0.3s ease;
+            z-index: 1001;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .mobile-sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ECF0F1;
+        }
+
+        .sidebar-header h3 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .sidebar-close {
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: #7F8C8D;
+            cursor: pointer;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px;
+            text-decoration: none;
+            color: #2C3E50;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background: var(--gradient);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .sidebar-link i {
+            width: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* التجاوب */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .add-auction-container {
+                padding: 20px;
+                margin: 0 10px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .page-title {
+                font-size: 1.6rem;
+            }
+            
+            .page-subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .add-auction-container {
+                padding: 15px;
+            }
+            
+            .page-title {
+                font-size: 1.4rem;
+            }
+            
+            .seller-check {
+                padding: 20px;
+            }
+            
+            .image-upload-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر -->
+    <header class="main-header">
+        <div class="header-top">
+            <div class="container">
+                <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="index.html" class="logo">
+                    <i class="fas fa-paw"></i>
+                    <span>أنعام السعودية</span>
+                </a>
+                <a href="auctions.html" class="back-btn">
+                    <i class="fas fa-arrow-right"></i>
+                    العودة للمزادات
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- القائمة الجانبية للجوال -->
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="sidebar-header">
+            <h3>القائمة</h3>
+            <button class="sidebar-close" onclick="toggleSidebar()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.html" class="sidebar-link">
+                <i class="fas fa-home"></i>
+                الرئيسية
+            </a>
+            <a href="ads.html" class="sidebar-link">
+                <i class="fas fa-bullhorn"></i>
+                الإعلانات
+            </a>
+            <a href="auctions.html" class="sidebar-link">
+                <i class="fas fa-gavel"></i>
+                المزادات
+            </a>
+            <a href="favorites.html" class="sidebar-link">
+                <i class="fas fa-heart"></i>
+                المفضلة
+            </a>
+            <a href="messages.html" class="sidebar-link">
+                <i class="fas fa-envelope"></i>
+                الرسائل
+            </a>
+            <a href="profile.html" class="sidebar-link">
+                <i class="fas fa-user"></i>
+                حسابي
+            </a>
+            <a href="login.html" class="sidebar-link">
+                <i class="fas fa-sign-in-alt"></i>
+                تسجيل الدخول
+            </a>
+            <a href="register.html" class="sidebar-link">
+                <i class="fas fa-user-plus"></i>
+                إنشاء حساب
+            </a>
+            <a href="add-auction.html" class="sidebar-link active">
+                <i class="fas fa-plus"></i>
+                أضف مزاد
+            </a>
+        </nav>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- محتوى الصفحة -->
+    <main class="add-auction-main">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">إضافة مزاد جديد</h1>
+                <p class="page-subtitle">أنشئ مزاداً جديداً واجذب المزايدين لمنتجاتك</p>
+            </div>
+            
+            <div class="add-auction-container">
+                <!-- تحقق من حالة البائع -->
+                <div class="seller-check" id="sellerCheck">
+                    <h3><i class="fas fa-store"></i> تحقق من حالة البائع</h3>
+                    <p>يجب أن تكون مسجلاً كبائع لإضافة مزاد جديد</p>
+                    <div id="sellerStatus">
+                        <!-- سيتم تعبئة حالة البائع ديناميكياً -->
+                    </div>
+                </div>
+
+                <form id="add-auction-form" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label" for="category">التصنيف</label>
+                        <select class="form-select" id="category" required>
+                            <option value="">اختر التصنيف</option>
+                            <option value="sheep">الأغنام</option>
+                            <option value="camel">الإبل</option>
+                            <option value="cow">الأبقار</option>
+                            <option value="goat">الماعز</option>
+                            <option value="poultry">الدواجن</option>
+                            <option value="feed">الأعلاف</option>
+                            <option value="grains">الحبوب</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="title">عنوان المزاد</label>
+                        <input type="text" class="form-control" id="title" placeholder="مثال: مزاد على قطيع أغنام نعيمي" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="description">وصف المزاد</label>
+                        <textarea class="form-control form-textarea" id="description" placeholder="أدخل وصفاً مفصلاً للمزاد..." required></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label class="form-label" for="startingPrice">سعر البدء (ريال)</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-money-bill-wave input-icon"></i>
+                                    <input type="number" class="form-control" id="startingPrice" placeholder="0" min="0" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label class="form-label" for="minBid">أقل مزايدة (ريال)</label>
+                                <input type="number" class="form-control" id="minBid" placeholder="100" min="0" value="100" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label class="form-label" for="quantity">الكمية</label>
+                                <input type="number" class="form-control" id="quantity" min="1" value="1" required>
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label class="form-label" for="reservePrice">السعر الاحتياطي (اختياري)</label>
+                                <input type="number" class="form-control" id="reservePrice" placeholder="0" min="0">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="location">الموقع</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-map-marker-alt input-icon"></i>
+                            <input type="text" class="form-control" id="location" placeholder="المدينة، المنطقة" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">صور المزاد</label>
+                        <div class="image-upload-container" id="imageUpload">
+                            <div class="image-upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <div class="image-upload-text">
+                                <p>اسحب وأفلت الصور هنا أو <strong>انقر للتصفح</strong></p>
+                                <p style="color: #7F8C8D; font-size: 14px;">يسمح بحد أقصى 10 صور (JPEG, PNG)</p>
+                            </div>
+                            <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
+                        </div>
+                        <div class="image-preview" id="imagePreview"></div>
+                    </div>
+                    
+                    <div class="auction-settings">
+                        <h3 class="section-title"><i class="fas fa-cog"></i> إعدادات المزاد</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label class="form-label" for="startDate">تاريخ بدء المزاد</label>
+                                    <input type="datetime-local" class="form-control" id="startDate" required>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label class="form-label" for="endDate">تاريخ انتهاء المزاد</label>
+                                    <input type="datetime-local" class="form-control" id="endDate" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="features">المميزات (اختياري)</label>
+                            <textarea class="form-control form-textarea" id="features" placeholder="أدخل مميزات المنتج، كل ميزة في سطر..."></textarea>
+                            <small style="color: #7F8C8D; font-size: 13px;">أدخل كل ميزة في سطر جديد</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline btn-block" id="cancelBtn">
+                            <i class="fas fa-times"></i> إلغاء
+                        </button>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-plus"></i> نشر المزاد
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- القائمة السفلية للجوال -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a href="auctions.html" class="nav-item">
+            <i class="fas fa-gavel"></i>
+            <span>المزادات</span>
+        </a>
+        <a href="add-auction.html" class="nav-item active">
+            <i class="fas fa-plus"></i>
+            <span>إضافة</span>
+        </a>
+        <a href="favorites.html" class="nav-item">
+            <i class="far fa-heart"></i>
+            <span>المفضلة</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <i class="far fa-user"></i>
+            <span>حسابي</span>
+        </a>
+    </nav>
+
+    <script>
+        // محاكاة حالة المستخدم (غير مسجل كبائع)
+        const userStatus = {
+            isLoggedIn: true,
+            isSeller: false,
+            userType: "buyer"
+        };
+
+        // إظهار/إخفاء القائمة الجانبية
+        function toggleSidebar() {
+            const sidebar = document.getElementById('mobileSidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            checkSellerStatus();
+            setupEventListeners();
+            setDefaultDates();
+        });
+
+        // التحقق من حالة البائع
+        function checkSellerStatus() {
+            const sellerStatusDiv = document.getElementById('sellerStatus');
+            const auctionForm = document.getElementById('add-auction-form');
+            
+            if (!userStatus.isLoggedIn) {
+                sellerStatusDiv.innerHTML = `
+                    <p style="color: var(--danger); margin-bottom: 15px; font-weight: 600;">يجب تسجيل الدخول أولاً</p>
+                    <a href="login.html" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+                    </a>
+                `;
+            } else if (!userStatus.isSeller) {
+                sellerStatusDiv.innerHTML = `
+                    <p style="color: var(--danger); margin-bottom: 15px; font-weight: 600;">حسابك الحالي ليس مسجلاً كبائع</p>
+                    <p style="color: #7F8C8D; margin-bottom: 15px; font-weight: 500;">لإضافة مزاد، يجب أن تنضم كبائع أولاً</p>
+                    <button class="btn btn-primary" id="becomeSellerBtn">
+                        <i class="fas fa-store"></i> انضم كبائع
+                    </button>
+                `;
+            } else {
+                sellerStatusDiv.innerHTML = `
+                    <p style="color: var(--success); margin-bottom: 15px; font-weight: 600;">
+                        <i class="fas fa-check-circle"></i> حسابك مسجل كبائع
+                    </p>
+                `;
+                document.getElementById('sellerCheck').style.display = 'none';
+                auctionForm.style.display = 'block';
+            }
+        }
+
+        // إعداد مستمعي الأحداث
+        function setupEventListeners() {
+            // انضم كبائع
+            document.addEventListener('click', function(e) {
+                if (e.target.id === 'becomeSellerBtn') {
+                    showToast('جاري التوجه إلى صفحة التسجيل كبائع...', 'info');
+                    setTimeout(() => {
+                        window.location.href = 'register.html?type=seller';
+                    }, 1500);
+                }
+            });
+
+            // رفع الصور
+            const imageUpload = document.getElementById('imageUpload');
+            const fileInput = document.getElementById('fileInput');
+            const imagePreview = document.getElementById('imagePreview');
+            
+            imageUpload.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            fileInput.addEventListener('change', function() {
+                const files = this.files;
+                
+                for (let i = 0; i < files.length; i++) {
+                    if (imagePreview.children.length >= 10) {
+                        showToast('لا يمكن رفع أكثر من 10 صور', 'warning');
+                        break;
+                    }
+                    
+                    const file = files[i];
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        const previewItem = document.createElement('div');
+                        previewItem.className = 'preview-item';
+                        
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        
+                        const removeBtn = document.createElement('div');
+                        removeBtn.className = 'preview-remove';
+                        removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                        removeBtn.addEventListener('click', function() {
+                            previewItem.remove();
+                            showToast('تم حذف الصورة', 'info');
+                        });
+                        
+                        previewItem.appendChild(img);
+                        previewItem.appendChild(removeBtn);
+                        imagePreview.appendChild(previewItem);
+                    }
+                    
+                    reader.readAsDataURL(file);
+                }
+                
+                // إعادة تعيين حقل الرفع للسماح برفع نفس الملف مرة أخرى
+                fileInput.value = '';
+            });
+
+            // إرسال النموذج
+            document.getElementById('add-auction-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // التحقق من البيانات
+                const title = document.getElementById('title').value;
+                const description = document.getElementById('description').value;
+                const startingPrice = document.getElementById('startingPrice').value;
+                const location = document.getElementById('location').value;
+                const startDate = document.getElementById('startDate').value;
+                const endDate = document.getElementById('endDate').value;
+                
+                if (!title || !description || !startingPrice || !location || !startDate || !endDate) {
+                    showToast('يرجى ملء جميع الحقول المطلوبة', 'warning');
+                    return;
+                }
+                
+                if (new Date(startDate) >= new Date(endDate)) {
+                    showToast('تاريخ الانتهاء يجب أن يكون بعد تاريخ البدء', 'warning');
+                    return;
+                }
+                
+                // محاكاة إرسال النموذج
+                const submitBtn = document.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري النشر...';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    showToast('تم إضافة المزاد بنجاح!', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'auctions.html';
+                    }, 2000);
+                }, 2000);
+            });
+
+            // إلغاء النموذج
+            document.getElementById('cancelBtn').addEventListener('click', function() {
+                if (confirm('هل تريد إلغاء إضافة المزاد؟ سيتم فقدان جميع البيانات المدخلة.')) {
+                    window.location.href = 'auctions.html';
+                }
+            });
+        }
+
+        // تعيين التواريخ الافتراضية
+        function setDefaultDates() {
+            const now = new Date();
+            const startDate = new Date(now.getTime() + 24 * 60 * 60 * 1000); // غداً
+            const endDate = new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000); // بعد أسبوع
+            
+            document.getElementById('startDate').value = formatDateTime(startDate);
+            document.getElementById('endDate').value = formatDateTime(endDate);
+        }
+
+        // تنسيق التاريخ والوقت
+        function formatDateTime(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            
+            return `${year}-${month}-${day}T${hours}:${minutes}`;
+        }
+
+        // عرض الإشعارات
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `
+                <div class="toast-content">
+                    <i class="fas fa-${type === 'success' ? 'check' : type === 'warning' ? 'exclamation-triangle' : 'info'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+
+            // إضافة الأنماط
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%) translateY(-100px);
+                background: ${type === 'success' ? 'var(--success)' : type === 'warning' ? 'var(--warning)' : 'var(--info)'};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                box-shadow: var(--shadow-lg);
+                z-index: 10000;
+                transition: all 0.3s ease;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            `;
+
+            document.body.appendChild(toast);
+
+            // إظهار الرسالة
+            setTimeout(() => {
+                toast.style.transform = 'translateX(-50%) translateY(0)';
+            }, 100);
+
+            // إخفاء الرسالة
+            setTimeout(() => {
+                toast.style.transform = 'translateX(-50%) translateY(-100px)';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإعلانات - أنعام السعودية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8B4513;
+            --secondary: #A0522D;
+            --accent: #D2691E;
+            --light: #FDF6E3;
+            --dark: #5D4037;
+            --success: #27AE60;
+            --danger: #E74C3C;
+            --warning: #F39C12;
+            --info: #3498DB;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            --gradient: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
+        }
+
+        body {
+            background: #f8f9fa;
+            color: #2C3E50;
+            line-height: 1.6;
+            padding-bottom: 70px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* الهيدر */
+        .main-header {
+            background: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-top {
+            padding: 12px 0;
+            border-bottom: 1px solid #ECF0F1;
+        }
+
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 24px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 5px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #7F8C8D;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .nav-link.active,
+        .nav-link:hover {
+            background: var(--gradient);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* القسم الرئيسي */
+        .hero-section {
+            background: var(--gradient);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.1;
+        }
+
+        .hero-section h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero-section p {
+            font-size: 1rem;
+            margin-bottom: 25px;
+            opacity: 0.95;
+            position: relative;
+            font-weight: 500;
+        }
+
+        /* شريط البحث والتصفية */
+        .search-filter-bar {
+            background: white;
+            padding: 25px 0;
+            box-shadow: var(--shadow);
+        }
+
+        .search-container {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto 20px;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            background: white;
+        }
+
+        .search-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: var(--primary);
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-label {
+            font-size: 14px;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .filter-select {
+            padding: 10px 15px;
+            border: 2px solid #ECF0F1;
+            border-radius: 12px;
+            background: white;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            min-width: 160px;
+        }
+
+        .filter-select:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        /* التصفية المتقدمة */
+        .advanced-filters {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+
+        .advanced-filters.active {
+            display: block;
+        }
+
+        .advanced-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ECF0F1;
+        }
+
+        .advanced-title {
+            font-size: 1.2rem;
+            color: var(--dark);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .advanced-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .price-range {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .price-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 2px solid #ECF0F1;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .price-separator {
+            color: #7F8C8D;
+            font-weight: 600;
+        }
+
+        .filter-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .filter-checkbox input {
+            width: 18px;
+            height: 18px;
+        }
+
+        .filter-checkbox label {
+            font-size: 14px;
+            color: #2C3E50;
+            cursor: pointer;
+        }
+
+        .toggle-advanced {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 auto;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-advanced:hover {
+            color: var(--secondary);
+        }
+
+        /* شبكة الإعلانات */
+        .ads-main {
+            padding: 40px 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            color: var(--dark);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+
+        .results-count {
+            color: #7F8C8D;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .view-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .view-btn {
+            background: white;
+            border: 2px solid #ECF0F1;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            color: #7F8C8D;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn.active {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .ads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .ads-grid.list-view {
+            grid-template-columns: 1fr;
+        }
+
+        .ad-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            border: 1px solid #ECF0F1;
+        }
+
+        .ad-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .ad-card.list-view {
+            display: flex;
+        }
+
+        .ad-card.list-view .ad-image {
+            width: 250px;
+            height: auto;
+        }
+
+        .ad-image {
+            width: 100%;
+            height: 180px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ad-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .ad-card:hover .ad-image img {
+            transform: scale(1.05);
+        }
+
+        .ad-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--primary);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .ad-badge.featured {
+            background: var(--success);
+        }
+
+        .ad-badge.new {
+            background: var(--info);
+        }
+
+        .ad-badge.verified {
+            background: var(--warning);
+        }
+
+        .ad-info {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .ad-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--dark);
+            line-height: 1.4;
+        }
+
+        .ad-description {
+            color: #7F8C8D;
+            font-size: 13px;
+            margin-bottom: 12px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .ad-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #95A5A6;
+            font-size: 12px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .ad-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .ad-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 12px;
+        }
+
+        .rating-stars {
+            color: #FFD700;
+        }
+
+        .rating-count {
+            color: #95A5A6;
+            font-size: 12px;
+        }
+
+        .ad-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .ad-actions .btn {
+            flex: 1;
+            padding: 10px 15px;
+            font-size: 13px;
+        }
+
+        /* أزرار التحميل */
+        .load-more {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .load-more-btn {
+            padding: 12px 30px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+        }
+
+        .load-more-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* القائمة السفلية للجوال */
+        .mobile-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-top: 1px solid #ECF0F1;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #95A5A6;
+            font-size: 11px;
+            padding: 5px;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        /* القائمة الجانبية للجوال */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background: white;
+            box-shadow: var(--shadow-lg);
+            transition: right 0.3s ease;
+            z-index: 1001;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .mobile-sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ECF0F1;
+        }
+
+        .sidebar-header h3 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .sidebar-close {
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: #7F8C8D;
+            cursor: pointer;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px;
+            text-decoration: none;
+            color: #2C3E50;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background: var(--gradient);
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .sidebar-link i {
+            width: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* التجاوب */
+        @media (max-width: 768px) {
+            .main-nav,
+            .user-actions {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-section {
+                padding: 30px 0;
+            }
+
+            .hero-section h1 {
+                font-size: 1.6rem;
+            }
+
+            .hero-section p {
+                font-size: 0.95rem;
+            }
+
+            .search-container {
+                flex-direction: column;
+                border-radius: 12px;
+            }
+
+            .search-input {
+                border-radius: 12px 12px 0 0;
+            }
+
+            .search-btn {
+                border-radius: 0 0 12px 12px;
+                padding: 12px;
+            }
+
+            .filter-options {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-select {
+                min-width: auto;
+            }
+
+            .advanced-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ads-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .ad-card.list-view {
+                flex-direction: column;
+            }
+
+            .ad-card.list-view .ad-image {
+                width: 100%;
+                height: 180px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+            }
+
+            .ad-image {
+                height: 160px;
+            }
+
+            .ad-title {
+                font-size: 15px;
+            }
+
+            .ad-price {
+                font-size: 16px;
+            }
+
+            .view-options {
+                align-self: stretch;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 12px;
+            }
+
+            .hero-section h1 {
+                font-size: 1.4rem;
+            }
+
+            .hero-section p {
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .ad-title {
+                font-size: 14px;
+            }
+
+            .ad-description {
+                font-size: 12px;
+            }
+
+            .ad-price {
+                font-size: 15px;
+            }
+
+            .load-more-btn {
+                padding: 10px 25px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر -->
+    <header class="main-header">
+        <div class="header-top">
+            <div class="container">
+                <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="index.html" class="logo">
+                    <i class="fas fa-paw"></i>
+                    <span>أنعام السعودية</span>
+                </a>
+                <nav class="main-nav">
+                    <a href="index.html" class="nav-link">الرئيسية</a>
+                    <a href="ads.html" class="nav-link active">الإعلانات</a>
+                    <a href="auctions.html" class="nav-link">المزادات</a>
+                    <a href="favorites.html" class="nav-link">المفضلة</a>
+                </nav>
+                <div class="user-actions">
+                    <a href="login.html" class="btn btn-outline">تسجيل الدخول</a>
+                    <a href="register.html" class="btn btn-primary">إنشاء حساب</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- القائمة الجانبية للجوال -->
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="sidebar-header">
+            <h3>القائمة</h3>
+            <button class="sidebar-close" onclick="toggleSidebar()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.html" class="sidebar-link">
+                <i class="fas fa-home"></i>
+                الرئيسية
+            </a>
+            <a href="ads.html" class="sidebar-link active">
+                <i class="fas fa-bullhorn"></i>
+                الإعلانات
+            </a>
+            <a href="auctions.html" class="sidebar-link">
+                <i class="fas fa-gavel"></i>
+                المزادات
+            </a>
+            <a href="favorites.html" class="sidebar-link">
+                <i class="fas fa-heart"></i>
+                المفضلة
+            </a>
+            <a href="messages.html" class="sidebar-link">
+                <i class="fas fa-envelope"></i>
+                الرسائل
+            </a>
+            <a href="profile.html" class="sidebar-link">
+                <i class="fas fa-user"></i>
+                حسابي
+            </a>
+            <a href="login.html" class="sidebar-link">
+                <i class="fas fa-sign-in-alt"></i>
+                تسجيل الدخول
+            </a>
+            <a href="register.html" class="sidebar-link">
+                <i class="fas fa-user-plus"></i>
+                إنشاء حساب
+            </a>
+            <a href="add-ad.html" class="sidebar-link">
+                <i class="fas fa-plus"></i>
+                أضف إعلان
+            </a>
+        </nav>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- قسم البطل -->
+    <section class="hero-section">
+        <div class="container">
+            <h1>تصفح الإعلانات</h1>
+            <p>اكتشف أفضل العروض على المواشي والأعلاف في المملكة</p>
+        </div>
+    </section>
+
+    <!-- شريط البحث والتصفية -->
+    <section class="search-filter-bar">
+        <div class="container">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="ابحث عن مواشي، أعلاف، حبوب..." id="searchInput">
+                <button class="search-btn" onclick="performSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            
+            <div class="filter-options">
+                <div class="filter-group">
+                    <label class="filter-label">التصنيف</label>
+                    <select class="filter-select" id="categoryFilter">
+                        <option value="all">جميع التصنيفات</option>
+                        <option value="sheep">الأغنام</option>
+                        <option value="camel">الإبل</option>
+                        <option value="cow">الأبقار</option>
+                        <option value="goat">الماعز</option>
+                        <option value="poultry">الدواجن</option>
+                        <option value="feed">الأعلاف</option>
+                        <option value="grains">الحبوب</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">الموقع</label>
+                    <select class="filter-select" id="locationFilter">
+                        <option value="all">جميع المواقع</option>
+                        <option value="الرياض">الرياض</option>
+                        <option value="مكة">مكة</option>
+                        <option value="الدمام">الدمام</option>
+                        <option value="جدة">جدة</option>
+                        <option value="المدينة">المدينة</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">الترتيب</label>
+                    <select class="filter-select" id="sortFilter">
+                        <option value="newest">الأحدث</option>
+                        <option value="price-low">السعر من الأقل</option>
+                        <option value="price-high">السعر من الأعلى</option>
+                        <option value="popular">الأكثر مشاهدة</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="toggle-advanced" id="toggleAdvanced">
+                <i class="fas fa-sliders-h"></i>
+                تصفية متقدمة
+            </button>
+
+            <!-- التصفية المتقدمة -->
+            <div class="advanced-filters" id="advancedFilters">
+                <div class="advanced-header">
+                    <h3 class="advanced-title">
+                        <i class="fas fa-filter"></i>
+                        التصفية المتقدمة
+                    </h3>
+                    <button class="btn btn-outline" onclick="resetFilters()">
+                        <i class="fas fa-redo"></i>
+                        إعادة التعيين
+                    </button>
+                </div>
+                <div class="advanced-grid">
+                    <div class="filter-group">
+                        <label class="filter-label">نطاق السعر</label>
+                        <div class="price-range">
+                            <input type="number" class="price-input" id="minPrice" placeholder="الحد الأدنى">
+                            <span class="price-separator">-</span>
+                            <input type="number" class="price-input" id="maxPrice" placeholder="الحد الأقصى">
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">الحالة</label>
+                        <div class="filter-checkbox">
+                            <input type="checkbox" id="featuredOnly" value="featured">
+                            <label for="featuredOnly">إعلانات مميزة فقط</label>
+                        </div>
+                        <div class="filter-checkbox">
+                            <input type="checkbox" id="newOnly" value="new">
+                            <label for="newOnly">إعلانات جديدة فقط</label>
+                        </div>
+                        <div class="filter-checkbox">
+                            <input type="checkbox" id="verifiedOnly" value="verified">
+                            <label for="verifiedOnly">بائعون موثوقون</label>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">التقييم</label>
+                        <select class="filter-select" id="ratingFilter">
+                            <option value="all">جميع التقييمات</option>
+                            <option value="5">5 نجوم</option>
+                            <option value="4">4 نجوم فما فوق</option>
+                            <option value="3">3 نجوم فما فوق</option>
+                            <option value="2">2 نجوم فما فوق</option>
+                            <option value="1">1 نجمة فما فوق</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">تاريخ النشر</label>
+                        <select class="filter-select" id="dateFilter">
+                            <option value="all">أي وقت</option>
+                            <option value="today">اليوم</option>
+                            <option value="week">أخر أسبوع</option>
+                            <option value="month">أخر شهر</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- محتوى الإعلانات -->
+    <main class="ads-main">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-bullhorn"></i>
+                    جميع الإعلانات
+                </h2>
+                <div class="view-options">
+                    <button class="view-btn active" id="gridView" onclick="changeView('grid')">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <button class="view-btn" id="listView" onclick="changeView('list')">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+                <div class="results-count" id="resultsCount">يتم تحميل الإعلانات...</div>
+            </div>
+            
+            <div class="ads-grid" id="adsGrid">
+                <!-- سيتم تعبئة الإعلانات ديناميكياً -->
+            </div>
+
+            <div class="load-more">
+                <button class="load-more-btn" onclick="loadMoreAds()">
+                    <i class="fas fa-redo"></i>
+                    تحميل المزيد
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- القائمة السفلية للجوال -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a href="ads.html" class="nav-item active">
+            <i class="fas fa-bullhorn"></i>
+            <span>الإعلانات</span>
+        </a>
+        <a href="auctions.html" class="nav-item">
+            <i class="fas fa-gavel"></i>
+            <span>المزادات</span>
+        </a>
+        <a href="favorites.html" class="nav-item">
+            <i class="fas fa-heart"></i>
+            <span>المفضلة</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>حسابي</span>
+        </a>
+    </nav>
+
+    <script>
+        // بيانات الإعلانات
+        const adsData = [
+            {
+                id: 1,
+                title: "قطيع أغنام نعيمي - الرياض",
+                description: "قطيع مكون من 50 رأس من الأغنام النعيمية، صحة ممتازة، عمر 8-12 شهر",
+                image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                price: 45000,
+                category: "sheep",
+                location: "الرياض",
+                date: "2024-01-15",
+                views: 124,
+                isFeatured: true,
+                isNew: false,
+                isVerified: true,
+                rating: 4.5,
+                ratingCount: 12
+            },
+            {
+                id: 2,
+                title: "أبقار فريزيان حلوب - الدمام",
+                description: "قطيع أبقار فريزيان منتج للحليب، صحة ممتازة، عمر 2-3 سنوات",
+                image: "https://images.unsplash.com/photo-1599156226596-61e8e3f0f9df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                price: 85000,
+                category: "cow",
+                location: "الدمام",
+                date: "2024-01-16",
+                views: 67,
+                isFeatured: true,
+                isNew: true,
+                isVerified: true,
+                rating: 4.8,
+                ratingCount: 8
+            },
+            {
+                id: 3,
+                title: "أعلاف مركزة عالية الجودة - جدة",
+                description: "أعلاف متكاملة لجميع أنواع المواشي، جودة عالية، سعر مناسب",
+                image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                price: 850,
+                category: "feed",
+                location: "جدة",
+                date: "2024-01-14",
+                views: 156,
+                isFeatured: true,
+                isNew: false,
+                isVerified: false,
+                rating: 4.2,
+                ratingCount: 15
+            },
+            {
+                id: 4,
+                title: "ماعز شامي أصيل - المدينة",
+                description: "ماعز شامي أصيل، صحة ممتازة، عمر 1-2 سنة، مناسب للتكاثر",
+                image: "https://images.unsplash.com/photo-1500595046743-cd271d694d30?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                price: 22000,
+                category: "goat",
+                location: "المدينة",
+                date: "2024-01-17",
+                views: 89,
+                isFeatured: false,
+                isNew: true,
+                isVerified: true,
+                rating: 4.7,
+                ratingCount: 5
+            },
+            {
+                id: 5,
+                title: "دواجن لحم - الخرج",
+                description: "كتاكيت دواجن لحم سريعة النمو، صحة ممتازة، معدل نمو عالي",
+                image: "https://images.unsplash.com/photo-1589923188657-2a9c21c03e5a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                price: 25,
+                category: "poultry",
+                location: "الخرج",
+                date: "2024-01-13",
+                views: 203,
+                isFeatured: false,
+                isNew: false,
+                isVerified: false,
+                rating: 3.9,
+                ratingCount: 22
+            },
+            {
+                id: 6,
+                title: "إبل مجاهيم - القصيم",
+                description: "إبل مجاهيم أصيلة، عمر 3-4 سنوات، صحة ممتازة، من أفضل السلالات",
+                image: "https://images.unsplash.com/photo-1578774205666-8623cb0c71d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                price: 120000,
+                category: "camel",
+                location: "القصيم",
+                date: "2024-01-18",
+                views: 45,
+                isFeatured: true,
+                isNew: true,
+                isVerified: true,
+                rating: 5.0,
+                ratingCount: 3
+            },
+            {
+                id: 7,
+                title: "حبوب ذرة صفراء - حائل",
+                description: "ذرة صفراء عالية الجودة، مناسبة لتغذية المواشي والدواجن، سعر مناسب",
+                image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                price: 1200,
+                category: "grains",
+                location: "حائل",
+                date: "2024-01-12",
+                views: 178,
+                isFeatured: false,
+                isNew: false,
+                isVerified: true,
+                rating: 4.4,
+                ratingCount: 18
+            },
+            {
+                id: 8,
+                title: "أغنام سواكني - أبها",
+                description: "قطيع أغنام سواكني، صحة ممتازة، عمر 10-14 شهر، مناسب للتسمين",
+                image: "https://images.unsplash.com/photo-1500471324256-0c5ac6b0f6b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+                price: 38000,
+                category: "sheep",
+                location: "أبها",
+                date: "2024-01-19",
+                views: 32,
+                isFeatured: false,
+                isNew: true,
+                isVerified: false,
+                rating: 4.0,
+                ratingCount: 2
+            }
+        ];
+
+        // حالة التطبيق
+        let currentView = 'grid';
+        let currentPage = 1;
+        const adsPerPage = 8;
+        let filteredAds = [...adsData];
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            renderAds();
+            setupEventListeners();
+        });
+
+        // إعداد المستمعين للأحداث
+        function setupEventListeners() {
+            // تصفية متقدمة
+            document.getElementById('toggleAdvanced').addEventListener('click', function() {
+                const advancedFilters = document.getElementById('advancedFilters');
+                advancedFilters.classList.toggle('active');
+                this.querySelector('i').classList.toggle('fa-sliders-h');
+                this.querySelector('i').classList.toggle('fa-times');
+            });
+
+            // تصفية فورية
+            document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+            document.getElementById('locationFilter').addEventListener('change', applyFilters);
+            document.getElementById('sortFilter').addEventListener('change', applyFilters);
+            document.getElementById('searchInput').addEventListener('input', applyFilters);
+            
+            // تصفية متقدمة
+            document.getElementById('minPrice').addEventListener('input', applyFilters);
+            document.getElementById('maxPrice').addEventListener('input', applyFilters);
+            document.getElementById('featuredOnly').addEventListener('change', applyFilters);
+            document.getElementById('newOnly').addEventListener('change', applyFilters);
+            document.getElementById('verifiedOnly').addEventListener('change', applyFilters);
+            document.getElementById('ratingFilter').addEventListener('change', applyFilters);
+            document.getElementById('dateFilter').addEventListener('change', applyFilters);
+        }
+
+        // تطبيق التصفية
+        function applyFilters() {
+            const category = document.getElementById('categoryFilter').value;
+            const location = document.getElementById('locationFilter').value;
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const minPrice = parseFloat(document.getElementById('minPrice').value) || 0;
+            const maxPrice = parseFloat(document.getElementById('maxPrice').value) || Infinity;
+            const featuredOnly = document.getElementById('featuredOnly').checked;
+            const newOnly = document.getElementById('newOnly').checked;
+            const verifiedOnly = document.getElementById('verifiedOnly').checked;
+            const rating = document.getElementById('ratingFilter').value;
+            const dateFilter = document.getElementById('dateFilter').value;
+            
+            // تصفية الإعلانات
+            filteredAds = adsData.filter(ad => {
+                // تصفية حسب التصنيف
+                if (category !== 'all' && ad.category !== category) return false;
+                
+                // تصفية حسب الموقع
+                if (location !== 'all' && ad.location !== location) return false;
+                
+                // تصفية حسب البحث
+                if (searchTerm && !ad.title.toLowerCase().includes(searchTerm) && 
+                    !ad.description.toLowerCase().includes(searchTerm)) return false;
+                
+                // تصفية حسب السعر
+                if (ad.price < minPrice || ad.price > maxPrice) return false;
+                
+                // تصفية حسب المميزات
+                if (featuredOnly && !ad.isFeatured) return false;
+                if (newOnly && !ad.isNew) return false;
+                if (verifiedOnly && !ad.isVerified) return false;
+                
+                // تصفية حسب التقييم
+                if (rating !== 'all' && ad.rating < parseFloat(rating)) return false;
+                
+                // تصفية حسب التاريخ
+                if (dateFilter !== 'all') {
+                    const adDate = new Date(ad.date);
+                    const today = new Date();
+                    const diffTime = Math.abs(today - adDate);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    
+                    if (dateFilter === 'today' && diffDays > 1) return false;
+                    if (dateFilter === 'week' && diffDays > 7) return false;
+                    if (dateFilter === 'month' && diffDays > 30) return false;
+                }
+                
+                return true;
+            });
+            
+            // ترتيب النتائج
+            const sortBy = document.getElementById('sortFilter').value;
+            switch(sortBy) {
+                case 'price-low':
+                    filteredAds.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    filteredAds.sort((a, b) => b.price - a.price);
+                    break;
+                case 'popular':
+                    filteredAds.sort((a, b) => b.views - a.views);
+                    break;
+                default: // الأحدث
+                    filteredAds.sort((a, b) => new Date(b.date) - new Date(a.date));
+            }
+            
+            currentPage = 1;
+            renderAds();
+        }
+
+        // عرض الإعلانات
+        function renderAds() {
+            const adsGrid = document.getElementById('adsGrid');
+            const resultsCount = document.getElementById('resultsCount');
+            const startIndex = (currentPage - 1) * adsPerPage;
+            const endIndex = startIndex + adsPerPage;
+            const adsToShow = filteredAds.slice(0, endIndex);
+            
+            // تحديث عدد النتائج
+            resultsCount.textContent = `عرض ${adsToShow.length} من ${filteredAds.length} إعلان`;
+            
+            // عرض الإعلانات
+            adsGrid.innerHTML = '';
+            adsToShow.forEach(ad => {
+                const adCard = createAdCard(ad);
+                adsGrid.appendChild(adCard);
+            });
+            
+            // إخفاء زر تحميل المزيد إذا لم تكن هناك المزيد من الإعلانات
+            const loadMoreBtn = document.querySelector('.load-more-btn');
+            if (endIndex >= filteredAds.length) {
+                loadMoreBtn.style.display = 'none';
+            } else {
+                loadMoreBtn.style.display = 'inline-flex';
+            }
+        }
+
+        // إنشاء بطاقة إعلان
+        function createAdCard(ad) {
+            const adCard = document.createElement('a');
+            adCard.href = `ad-details.html?id=${ad.id}`;
+            adCard.className = `ad-card ${currentView === 'list' ? 'list-view' : ''}`;
+            
+            // الشارات
+            let badges = '';
+            if (ad.isFeatured) badges += '<span class="ad-badge featured">مميز</span>';
+            if (ad.isNew) badges += '<span class="ad-badge new">جديد</span>';
+            if (ad.isVerified) badges += '<span class="ad-badge verified">موثوق</span>';
+            
+            // النجوم
+            const stars = generateStars(ad.rating);
+            
+            adCard.innerHTML = `
+                <div class="ad-image">
+                    <img src="${ad.image}" alt="${ad.title}">
+                    ${badges}
+                </div>
+                <div class="ad-info">
+                    <h3 class="ad-title">${ad.title}</h3>
+                    <p class="ad-description">${ad.description}</p>
+                    <div class="ad-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> ${ad.location}</span>
+                        <span><i class="far fa-clock"></i> ${formatDate(ad.date)}</span>
+                    </div>
+                    <div class="ad-price">${formatPrice(ad.price)} ريال</div>
+                    <div class="ad-rating">
+                        <div class="rating-stars">${stars}</div>
+                        <span class="rating-count">(${ad.ratingCount})</span>
+                    </div>
+                    <div class="ad-meta">
+                        <span><i class="far fa-eye"></i> ${ad.views} مشاهدة</span>
+                    </div>
+                    <div class="ad-actions">
+                        <button class="btn btn-outline" onclick="event.preventDefault(); addToFavorites(${ad.id})">
+                            <i class="far fa-heart"></i> مفضلة
+                        </button>
+                        <button class="btn btn-primary" onclick="event.preventDefault(); contactSeller(${ad.id})">
+                            <i class="fas fa-phone-alt"></i> اتصل
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            return adCard;
+        }
+
+        // توليد النجوم للتقييم
+        function generateStars(rating) {
+            let stars = '';
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 !== 0;
+            
+            for (let i = 0; i < fullStars; i++) {
+                stars += '<i class="fas fa-star"></i>';
+            }
+            
+            if (hasHalfStar) {
+                stars += '<i class="fas fa-star-half-alt"></i>';
+            }
+            
+            const emptyStars = 5 - Math.ceil(rating);
+            for (let i = 0; i < emptyStars; i++) {
+                stars += '<i class="far fa-star"></i>';
+            }
+            
+            return stars;
+        }
+
+        // تنسيق التاريخ
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 1) return 'اليوم';
+            if (diffDays === 2) return 'أمس';
+            if (diffDays <= 7) return `قبل ${diffDays - 1} أيام`;
+            
+            return date.toLocaleDateString('ar-SA');
+        }
+
+        // تنسيق السعر
+        function formatPrice(price) {
+            return price.toLocaleString('ar-SA');
+        }
+
+        // تغيير طريقة العرض
+        function changeView(view) {
+            currentView = view;
+            const gridViewBtn = document.getElementById('gridView');
+            const listViewBtn = document.getElementById('listView');
+            const adsGrid = document.getElementById('adsGrid');
+            
+            if (view === 'grid') {
+                gridViewBtn.classList.add('active');
+                listViewBtn.classList.remove('active');
+                adsGrid.classList.remove('list-view');
+            } else {
+                gridViewBtn.classList.remove('active');
+                listViewBtn.classList.add('active');
+                adsGrid.classList.add('list-view');
+            }
+            
+            renderAds();
+        }
+
+        // تحميل المزيد من الإعلانات
+        function loadMoreAds() {
+            currentPage++;
+            renderAds();
+        }
+
+        // إعادة تعيين الفلاتر
+        function resetFilters() {
+            document.getElementById('categoryFilter').value = 'all';
+            document.getElementById('locationFilter').value = 'all';
+            document.getElementById('sortFilter').value = 'newest';
+            document.getElementById('searchInput').value = '';
+            document.getElementById('minPrice').value = '';
+            document.getElementById('maxPrice').value = '';
+            document.getElementById('featuredOnly').checked = false;
+            document.getElementById('newOnly').checked = false;
+            document.getElementById('verifiedOnly').checked = false;
+            document.getElementById('ratingFilter').value = 'all';
+            document.getElementById('dateFilter').value = 'all';
+            
+            applyFilters();
+        }
+
+        // البحث
+        function performSearch() {
+            applyFilters();
+        }
+
+        // إضافة إلى المفضلة
+        function addToFavorites(adId) {
+            alert(`تم إضافة الإعلان ${adId} إلى المفضلة`);
+            // هنا يمكن إضافة منطق إضافة إلى المفضلة
+        }
+
+        // الاتصال بالبائع
+        function contactSeller(adId) {
+            alert(`جاري الاتصال بصاحب الإعلان ${adId}`);
+            // هنا يمكن إضافة منطق الاتصال بالبائع
+        }
+
+        // تبديل القائمة الجانبية
+        function toggleSidebar() {
+            const sidebar = document.getElementById('mobileSidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
